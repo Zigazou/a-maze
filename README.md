@@ -21,4 +21,4 @@ Kenney Vleugels (Kenney.nl).
 Run
 ---
 
-Go to [](maze-app.html)
+Go to [maze-app.html](maze-app.html)
