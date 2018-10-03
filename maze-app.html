@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <meta charset="utf8">
+    <script src="html-imports.min.js"></script>    
+    <link rel="import" href="a-maze.html">
+    <style>
+      a-maze {
+        display: block;
+        margin: 0 auto;
+        max-width: 60%;
+      }
+
+      .direction { text-align: center; }
+    </style>
+  </head>
+  <body>
+    <a-maze id="maze"></a-maze>
+
+    <div class="direction">
+      <div><button id="up">↑</button></div>
+      <div>
+        <button id="left">←</button>
+        <button id="right">→</button>
+      </div>
+      <div><button id="down">↓</button></div>
+    </div>
+
+    <script src="maze-app.js"></script>
+  </body>
+</html>
