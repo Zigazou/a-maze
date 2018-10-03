@@ -17,3 +17,8 @@ The main program is `maze-app.html`. The web component is contained in
 
 The project uses a tile sheet from the "Simplified Platformer Pack" from
 Kenney Vleugels (Kenney.nl).
+
+Run
+---
+
+Go to [](maze-app.html)
