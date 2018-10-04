@@ -1,4 +1,4 @@
-<template id="a-maze">
+<template class="a-maze-template">
   <style>
     div.container { position: relative; }
 
@@ -27,34 +27,135 @@
 </template>
 
 <script>
+/**
+ * A tag dedicated to showing a maze game including background, objects and
+ * hero or heroin.
+ */
 class AMaze extends HTMLElement {
+  /**
+   * Constructor.
+   */
   constructor() {
     super()
 
+    /**
+     * Column count of the grid.
+     * @member {number}
+     */
     this.gridColumns = 0
+
+    /**
+     * Row count of the grid.
+     * @member {number}
+     */
     this.gridRows = 0
+
+    /**
+     * Cell size in pixels. Note: a cell is a square.
+     * @member {number}
+     */
     this.cellSize = 0
+
+    /**
+     * URL pointing to an image containing the tiles and sprites.
+     * @member {string}
+     */
     this.tilesURL = ""
+
+    /**
+     * The tiles and sprites sheet.
+     * @member {Image}
+     */
     this.spriteSheet = undefined
+
+    /**
+     * Sprite column count in the sprite sheet.
+     * @member {number}
+     */
     this.spriteColumns = 0
+
+    /**
+     * Sprite row count in the sprite sheet.
+     * @member {number}
+     */
     this.spriteRows = 0
+
+    /**
+     * A 2 dimensional array containing objects with coordinates to the sprite
+     * sheet.
+     * @member {Object[][]}
+     */
     this.grid = [[]]
+
+    /**
+     * Column position of the hero sprite in the sprite sheet.
+     * @member {number}
+     */
     this.heroSrcCol = 0
+
+    /**
+     * Row position of the hero sprite in the sprite sheet.
+     * @member {number}
+     */
     this.heroSrcRow = 0
 
+    /**
+     * Objects positions.
+     * @member {Object[]}
+     */
+    this.objects = []
+
+    /**
+     * Shadow DOM of our tag.
+     * @member {ShadowRoot}
+     */
     this.root = this.attachShadow({ mode: 'open' })
     this.root.appendChild(AMaze.template.cloneNode(true))
 
+    /**
+     * Background canvas.
+     * @member {HTMLCanvasElement}
+     * @private
+     */
     this.backgroundCanvas = this.root.querySelector("canvas.background")
+
+    /**
+     * Objects canvas.
+     * @member {HTMLCanvasElement}
+     * @private
+     */
     this.objectsCanvas = this.root.querySelector("canvas.objects")
+
+    /**
+     * Hero canvas.
+     * @member {HTMLCanvasElement}
+     * @private
+     */
     this.heroCanvas = this.root.querySelector("canvas.hero")
+
+    /**
+     * Light canvas.
+     * @member {HTMLCanvasElement}
+     * @private
+     */
     this.lightCanvas = this.root.querySelector("canvas.light")
   }
 
+  /**
+   * List of attributes that must fire an attributeChangedCallback when they
+   * are modified by the user.
+   * @return {string[]}
+   */
   static get observedAttributes() {
     return ["cell-size", "tiles-url"]
   }
 
+  /**
+   * Handles attribute changing.
+   * @param {string} name Name of the attribute being modified.
+   * @param {string} oldValue Old value of the attribute.
+   * @param {string} newValue New value of the attribute.
+   */
   attributeChangedCallback(name, oldValue, newValue) {
     if(name === "cell-size") {
       this.cellSize = newValue
@@ -63,8 +164,13 @@ class AMaze extends HTMLElement {
     }
   }
 
+  /**
+   * Reset canvases. It sets canvases size according to the current grid, switch
+   * off the lights and draws background.
+   */
   resetCanvases() {
     if(this.grid.length < 1) {
+      // No grid to draw
       return
     }
 
@@ -92,8 +198,16 @@ class AMaze extends HTMLElement {
         this.copySprite(this.backgroundCanvas, coords.x, coords.y, x, y)
       })
     })
+
+    // Draw objects
+    this.drawObjects()
   }
 
+  /**
+   * Load a grid into our tag.
+   * @param {Object[][]}
+   * @return {Promise}
+   */
   loadGrid(grid) {
     return this.loadSprites().then(() => {
       this.grid = grid
@@ -103,14 +217,24 @@ class AMaze extends HTMLElement {
     })
   }
 
-  defineHero(col, row) {
+  /**
+   * Define the hero source sprite in the sprite sheet.
+   * @param {number} col Column in the sprite sheet.
+   * @param {number} row Row in the sprite sheet.
+   */
+   defineHero(col, row) {
     this.heroSrcCol = col
     this.heroSrcRow = row
 
     return this
   }
 
-  moveHero(col, row) {
+  /**
+   * Change the hero position.
+   * @param {number} col Column in the sprite sheet.
+   * @param {number} row Row in the sprite sheet.
+   */
+   moveHero(col, row) {
     this.heroCol = col
     this.heroRow = row
 
@@ -124,6 +248,36 @@ class AMaze extends HTMLElement {
     return this
   }
 
+  /**
+   * Load the objects.
+   */
+  loadObjects(objects) {
+    this.objects = objects
+    this.drawObjects()
+  }
+
+  /**
+   * Draw the objects.
+   */
+  drawObjects() {
+    // Clear the canvas
+    const ctx = this.objectsCanvas.getContext('2d')
+    ctx.clearRect(0, 0, this.objectsCanvas.width, this.objectsCanvas.height)
+
+    this.objects.forEach(object => {
+
+      this.copySprite(
+        this.objectsCanvas,
+        object.x, object.y,
+        object.col, object.row
+      )
+    })
+  }
+
+  /**
+   * Load the sprite sheet.
+   * @returns {Promise}
+   */
   loadSprites() {
     return new Promise((resolve, reject) => {
       this.spriteSheet = new Image()
@@ -132,24 +286,37 @@ class AMaze extends HTMLElement {
     })
   }
 
+  /**
+   * Lighten a cell.
+   * @param {number} column Column of the cell to lighten.
+   * @param {number} row Row of the cell to lighten.
+   */
   lighten(column, row) {
     const ctx = this.lightCanvas.getContext('2d')
     const x = column * this.cellSize + this.cellSize / 2
     const y = row * this.cellSize + this.cellSize / 2
-    const inner = this.cellSize / 2
-    const outer = this.cellSize * 1.5
+    const inner = this.cellSize / 1.5
+    const outer = this.cellSize * 1.2
 
     const g = ctx.createRadialGradient(x, y, inner, x, y, outer)
 
     g.addColorStop(1, 'rgba(0,0,0,0)')
-    g.addColorStop(0, 'rgba(0,0,0,0.9)')
+    g.addColorStop(0, 'rgba(0,0,0,1)')
 
     ctx.globalCompositeOperation = 'destination-out'
     ctx.fillStyle = g
     ctx.fillRect(x - outer, y - outer, outer * 2, outer * 2)
   }
 
-  copySprite(canvas, srcCol, srcRow, dstCol, dstRow) {
+  /**
+   * Copy a sprite to a canvas.
+   * @param {HTMLCanvasElement} canvas Destination canvas.
+   * @param {number} srcCol Column in the sprite sheet.
+   * @param {number} srcRow Row in the sprite sheet.
+   * @param {number} dstCol Column in the destination canvas.
+   * @param {number} dstRow Row in the destination canvas.
+   */
+   copySprite(canvas, srcCol, srcRow, dstCol, dstRow) {
     const ctx = canvas.getContext('2d')
 
     ctx.drawImage(
@@ -165,8 +332,9 @@ class AMaze extends HTMLElement {
   }
 }
 
-const local = document.currentScript.ownerDocument
-AMaze.template = local.getElementById("a-maze").content
+(function(local) {
+  AMaze.template = local.querySelector(".a-maze-template").content
+})(document.currentScript.ownerDocument)
 
 customElements.define('a-maze', AMaze)
 </script>

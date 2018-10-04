@@ -3,28 +3,23 @@
     <meta charset="utf8">
     <script src="html-imports.min.js"></script>    
     <link rel="import" href="a-maze.html">
+    <link rel="import" href="joy-stick.html">
     <style>
       a-maze {
         display: block;
         margin: 0 auto;
         max-width: 40%;
       }
-
-      .direction { text-align: center; }
     </style>
   </head>
   <body>
     <a-maze id="maze" cell-size="128" tiles-url="tilesheet-house.png"></a-maze>
 
-    <div class="direction">
-      <div><button id="up">↑</button></div>
-      <div>
-        <button id="left">←</button>
-        <button id="right">→</button>
-      </div>
-      <div><button id="down">↓</button></div>
-    </div>
+    <joy-stick id="joystick"></joy-stick>
 
+    <script src="maze-engine.js"></script>
     <script src="maze-app.js"></script>
+
+    <script src="one-maze.js"></script>
   </body>
 </html>

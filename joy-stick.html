@@ -1,0 +1,79 @@
+<template class="joy-stick-template">
+  <style>
+    .direction { text-align: center; }
+  </style>
+  
+  <div class="direction">
+    <div><button class="up">↑</button></div>
+    <div>
+      <button class="left">←</button>
+      <button class="right">→</button>
+    </div>
+    <div><button class="down">↓</button></div>
+  </div>
+</template>
+  
+<script>
+/**
+ * A JoyStick.
+ */
+class JoyStick extends HTMLElement {
+  /**
+   * Constructor.
+   */
+  constructor() {
+    super()
+
+    /**
+     * Shadow DOM of our tag.
+     * @member {ShadowRoot}
+     */
+    this.root = this.attachShadow({ mode: 'open' })
+    this.root.appendChild(JoyStick.template.cloneNode(true))
+
+    /**
+     * Buttons.
+     * @member {Object}
+     * @private
+     */
+    this.buttons = {
+      up: this.root.querySelector("button.up"),
+      down: this.root.querySelector("button.down"),
+      left: this.root.querySelector("button.left"),
+      right: this.root.querySelector("button.right"),
+    }
+
+    // Listen to keystrokes.
+    document.addEventListener(
+      "keydown", e => this.fireEvent(JoyStick.keyCodes[e.keyCode])
+    )
+
+    // Listen to button clicks.
+    for(let item in this.buttons) {
+      this.buttons[item].addEventListener("click", () => this.fireEvent(item))
+    }
+  }
+
+  /**
+   * Helper function used to fire joystick-move custom event.
+   * @param {string} value A string to pass in the detail of the event.
+   * @private
+   */
+   fireEvent(value) {
+    if(value !== undefined) {
+      this.dispatchEvent(new CustomEvent('joystick-move', { detail: value }))
+    }
+  }
+}
+
+/**
+ * Key codes and their string equivalent
+ */
+JoyStick.keyCodes = { 37: "left", 38: "up", 39: "right", 40: "down" };
+
+(function(local) {
+  JoyStick.template = local.querySelector(".joy-stick-template").content
+})(document.currentScript.ownerDocument)
+
+customElements.define('joy-stick', JoyStick)
+</script>
