@@ -1,49 +1,38 @@
 customElements.whenDefined("a-maze").then(() => {
     const maze = document.querySelector("a-maze")
-    const gridSketch = [
-        "XXXXXXXXXXXXXXXXXXXX",
-        "X   X X X X X X    X",
-        "XXX X         X X XX",
-        "X X X XXXXXXX   X  X",
-        "X X X       XXX XX X",
-        "X X XXXXXXX   X XXXX",
-        "X X     X.XXXXX    X",
-        "X XXX X X..   XXX  X",
-        "X     X ..X X      X",
-        "X XXXXXX XX XXXXXX X",
-        "X X   X   X X    X X",
-        "X X X X X     XX X X",
-        "X X X   X XXXXXXXX X",
-        "X X X X   X        X",
-        "XXXXXXXXXXXXXXXXXXXX"
-    ]
+    const rawGrid = [109, 111, 111, 111, 111, 111, 111, 112, 111, 111, 111, 111, 112, 111, 111, 111, 111, 111, 221, 117, 138, 1, 1, 1, 1, 1, 1, 115, 1, 1, 1, 1, 138, 1, 1, 1, 1, 1, 143, 247, 138, 1, 313, 282, 285, 1, 1, 1, 1, 312, 1, 1, 115, 1, 196, 1, 141, 1, 1, 138, 138, 1, 1, 1, 1, 1, 313, 282, 282, 284, 281, 1, 1, 1, 1, 1, 138, 1, 142, 140, 138, 1, 313, 282, 281, 1, 1, 1, 1, 1, 309, 1, 109, 111, 111, 111, 140, 1, 1, 138, 138, 1, 1, 1, 307, 282, 282, 282, 283, 282, 308, 1, 138, 1, 1, 1, 139, 114, 1, 138, 138, 1, 141, 1, 1, 1, 1, 1, 286, 1, 1, 1, 138, 1, 141, 1, 138, 1, 1, 138, 138, 1, 139, 111, 111, 111, 110, 1, 1, 1, 142, 111, 140, 1, 138, 1, 136, 111, 111, 140, 138, 1, 115, 1, 1, 1, 139, 111, 110, 1, 1, 1, 115, 1, 138, 1, 1, 1, 1, 138, 138, 1, 1, 1, 141, 1, 115, 1, 115, 1, 141, 1, 1, 1, 139, 111, 111, 114, 1, 138, 139, 111, 111, 111, 140, 1, 1, 1, 1, 1, 138, 1, 141, 1, 138, 1, 1, 1, 1, 138, 138, 1, 1, 1, 139, 111, 111, 111, 110, 1, 115, 1, 138, 1, 138, 1, 142, 110, 1, 138, 138, 1, 141, 1, 138, 1, 1, 1, 138, 1, 1, 1, 138, 1, 138, 1, 1, 138, 1, 138, 138, 1, 136, 111, 137, 1, 141, 1, 139, 111, 114, 1, 138, 1, 136, 111, 111, 137, 1, 138, 138, 1, 1, 1, 1, 1, 138, 1, 115, 1, 1, 1, 138, 1, 1, 1, 1, 1, 1, 138, 138, 1, 142, 111, 111, 111, 140, 1, 1, 1, 142, 111, 113, 111, 112, 111, 111, 114, 1, 138, 138, 1, 1, 1, 1, 1, 138, 1, 141, 1, 1, 1, 1, 1, 115, 1, 1, 1, 1, 138, 138, 1, 1, 131, 1, 1, 138, 1, 136, 111, 111, 111, 114, 1, 1, 1, 142, 111, 111, 140, 138, 1, 1, 1, 1, 1, 138, 1, 1, 1, 1, 1, 1, 1, 141, 1, 1, 1, 1, 138, 136, 111, 111, 111, 111, 111, 113, 111, 111, 111, 111, 111, 111, 111, 113, 111, 111, 111, 111, 137]
 
-    // Conversion table between the grid sketch and the tile sheet.
-    const tiles = {
-        'X': { x: 3, y: 4 },
-        ' ': { x: 3, y: 0 },
-        '.': { x: 7, y: 1 }
-    }
+    const sketchGrid = rawGrid.reduce((all, one, i) => {
+        const ch = Math.floor(i / 20)
+        all[ch] = [].concat(all[ch] || [], one)
+        return all
+    }, [])
 
     // Convert the grid sketch to a grid suitable for AMaze.
-    const grid = gridSketch.map(row => {
-        return row.match(/./g).map(character => tiles[character])
+    const grid = sketchGrid.map(row => {
+        return row.map(offset => {
+            offset--
+            return {
+                x: offset % 27,
+                y: Math.floor(offset / 27),
+                offset: offset
+            }
+        })
     })
 
     maze.loadGrid(grid)
-        .loadSprites("tilesheet.png", 128, 128)
         .then(() => {
             // Handles every move.
             const move = (x, y) => {
-                if(gridSketch[y].substr(x, 1) !== 'X') {
+                if(grid[y][x].offset < 27) {
                     maze.moveHero(x, y).lighten(x, y)
                 }
             }
 
             // Starting position of the hero.
-            maze.defineHero(13, 0)
-                .moveHero(9, 7)
-                .lighten(9, 7)
+            maze.defineHero(26, 0)
+                .moveHero(9, 9)
+                .lighten(9, 9)
 
             // Listen to arrow keys.
             document.addEventListener("keydown", e => {
