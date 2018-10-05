@@ -1,0 +1,10 @@
+@font-face {
+    font-family: OwreKynge;
+    src: url(owrekynge/OwreKynge.ttf);
+    font-weight: normal;
+  }
+
+a-maze {
+    display: block;
+    margin: 0 auto;
+}

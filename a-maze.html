@@ -5,7 +5,11 @@
     /* The canvases will occupy as much space as possible. */
     canvas {
       width: 100%;
-      height: auto;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      -ms-interpolation-mode: nearest-neighbor;
     }
 
     /* The background canvas is the reference canvas, all the other canvases */
@@ -20,10 +24,12 @@
   <div class="container">
     <!-- A stack of canvases. -->
     <canvas class="background"></canvas>
+    <canvas class="walls"></canvas>
     <canvas class="objects"></canvas>
     <canvas class="hero"></canvas>
     <canvas class="light"></canvas>
   </div>
+
 </template>
 
 <script>
@@ -88,6 +94,18 @@ class AMaze extends HTMLElement {
     this.grid = [[]]
 
     /**
+     * Objects positions.
+     * @member {Object[]}
+     */
+    this.objects = []
+
+    /**
+     * Walls positions.
+     * @member {Object[][]}
+     */
+    this.walls = [[]]
+
+    /**
      * Column position of the hero sprite in the sprite sheet.
      * @member {number}
      */
@@ -98,12 +116,6 @@ class AMaze extends HTMLElement {
      * @member {number}
      */
     this.heroSrcRow = 0
-
-    /**
-     * Objects positions.
-     * @member {Object[]}
-     */
-    this.objects = []
 
     /**
      * Shadow DOM of our tag.
@@ -127,6 +139,13 @@ class AMaze extends HTMLElement {
     this.objectsCanvas = this.root.querySelector("canvas.objects")
 
     /**
+     * Walls canvas.
+     * @member {HTMLCanvasElement}
+     * @private
+     */
+    this.wallsCanvas = this.root.querySelector("canvas.walls")
+
+    /**
      * Hero canvas.
      * @member {HTMLCanvasElement}
      * @private
@@ -139,6 +158,18 @@ class AMaze extends HTMLElement {
      * @private
      */
     this.lightCanvas = this.root.querySelector("canvas.light")
+
+    /**
+     * Message tags.
+     * @member {HTMLCanvasElement[]}
+     * @private
+     */
+    this.message = {
+      container: this.root.querySelector(".message"),
+      title: this.root.querySelector(".title"),
+      subject: this.root.querySelector(".subject"),
+      description: this.root.querySelector(".description")
+    }
   }
 
   /**
@@ -176,6 +207,7 @@ class AMaze extends HTMLElement {
 
     const canvases = [
       this.backgroundCanvas,
+      this.wallsCanvas,
       this.objectsCanvas,
       this.heroCanvas,
       this.lightCanvas
@@ -188,29 +220,54 @@ class AMaze extends HTMLElement {
     })
 
     // Switch off the lights
-    const ctx = this.lightCanvas.getContext('2d')
-    ctx.fillStyle = "black"
-    ctx.fillRect(0, 0, this.lightCanvas.width, this.lightCanvas.height)
+    this.switchOffTheLight()
 
-    // Draw background
-    this.grid.forEach((row, y) => {
+    this.redraw(this.backgroundCanvas, this.grid)
+    this.redraw(this.wallsCanvas, this.walls)
+    this.drawObjects()
+  }
+
+  redraw(canvas, tiles) {
+    // Clear the canvas.
+    const ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    // Draw elements.
+    tiles.forEach((row, y) => {
       row.forEach((coords, x) => {
-        this.copySprite(this.backgroundCanvas, coords.x, coords.y, x, y)
+        if(coords.offset >= 0) {
+          this.copySprite(canvas, coords.x, coords.y, x, y)
+        }
       })
     })
+  }
 
-    // Draw objects
-    this.drawObjects()
+  drawObjects() {
+    const canvas = this.objectsCanvas
+
+    // Clear the object canvas.
+    const ctx = canvas.getContext('2d')
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    this.objects.forEach(object => {
+      if(object.visible) {
+        this.copySprite(canvas, object.srcX, object.srcY, object.x, object.y)
+      }
+    })
   }
 
   /**
    * Load a grid into our tag.
    * @param {Object[][]}
+   * @param {Object[][]}
+   * @param {Object[][]}
    * @return {Promise}
    */
-  loadGrid(grid) {
+  loadGrid(grid, objects, walls) {
     return this.loadSprites().then(() => {
       this.grid = grid
+      this.objects = objects
+      this.walls = walls
       this.gridColumns = this.grid[0].length
       this.gridRows = this.grid.length
       this.resetCanvases()
@@ -234,7 +291,7 @@ class AMaze extends HTMLElement {
    * @param {number} col Column in the sprite sheet.
    * @param {number} row Row in the sprite sheet.
    */
-   moveHero(col, row) {
+  moveHero(col, row) {
     this.heroCol = col
     this.heroRow = row
 
@@ -246,32 +303,6 @@ class AMaze extends HTMLElement {
     this.copySprite(this.heroCanvas, this.heroSrcCol, this.heroSrcRow, col, row)
 
     return this
-  }
-
-  /**
-   * Load the objects.
-   */
-  loadObjects(objects) {
-    this.objects = objects
-    this.drawObjects()
-  }
-
-  /**
-   * Draw the objects.
-   */
-  drawObjects() {
-    // Clear the canvas
-    const ctx = this.objectsCanvas.getContext('2d')
-    ctx.clearRect(0, 0, this.objectsCanvas.width, this.objectsCanvas.height)
-
-    this.objects.forEach(object => {
-
-      this.copySprite(
-        this.objectsCanvas,
-        object.x, object.y,
-        object.col, object.row
-      )
-    })
   }
 
   /**
@@ -296,7 +327,7 @@ class AMaze extends HTMLElement {
     const x = column * this.cellSize + this.cellSize / 2
     const y = row * this.cellSize + this.cellSize / 2
     const inner = this.cellSize / 1.5
-    const outer = this.cellSize * 1.2
+    const outer = this.cellSize * 3
 
     const g = ctx.createRadialGradient(x, y, inner, x, y, outer)
 
@@ -306,6 +337,17 @@ class AMaze extends HTMLElement {
     ctx.globalCompositeOperation = 'destination-out'
     ctx.fillStyle = g
     ctx.fillRect(x - outer, y - outer, outer * 2, outer * 2)
+
+    return this
+  }
+
+  switchOffTheLight() {
+    const ctx = this.lightCanvas.getContext('2d')
+    ctx.globalCompositeOperation = 'source-over'
+    ctx.fillStyle = "black"
+    ctx.fillRect(0, 0, this.lightCanvas.width, this.lightCanvas.height)
+
+    return this
   }
 
   /**
@@ -316,7 +358,7 @@ class AMaze extends HTMLElement {
    * @param {number} dstCol Column in the destination canvas.
    * @param {number} dstRow Row in the destination canvas.
    */
-   copySprite(canvas, srcCol, srcRow, dstCol, dstRow) {
+  copySprite(canvas, srcCol, srcRow, dstCol, dstRow) {
     const ctx = canvas.getContext('2d')
 
     ctx.drawImage(
@@ -329,6 +371,17 @@ class AMaze extends HTMLElement {
       dstCol * this.cellSize, dstRow * this.cellSize,
       this.cellSize, this.cellSize
     )
+  }
+
+  showMessage(title, subject, description) {
+    this.message.title.innerHTML = title
+    this.message.subject.innerHTML = subject
+    this.message.description.innerHTML = description
+    this.message.container.classList.remove("hidden")
+  }
+
+  hideMessage() {
+    this.message.container.classList.add("hidden")
   }
 }
 

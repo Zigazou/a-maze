@@ -1,0 +1,185 @@
+<template class="mess-age-template">
+  <style>
+    h1 { font-weight: normal; }
+    .hidden { display: none; }
+
+    button {
+      width: 40%;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      margin-bottom: 0.5em;
+      font-family: OwreKynge, serif;
+      background-color: #303030;
+      color: white;
+      font-size: 100%;
+      border: 0.1em solid white;
+      cursor: pointer;
+    }
+
+    button:hover, button:focus {
+      outline: 0.2em solid white;
+      background-color: #202020;
+    }
+
+    h1 {
+      font-family: OwreKynge, serif;
+      margin-bottom: 0;
+      margin-top: 0.3em;
+    }
+
+    .information, .question {
+      position: fixed;
+      left: calc(50% - 12em);
+      top: calc(50% - 6em);
+      width: 24em;
+      height: 12em;
+      overflow: hidden;
+      font-size: 200%;
+      font-family: OwreKynge, serif;
+      background-image: url(message-background.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+      border-radius: 2em;
+      border: 0.5em solid white;
+      text-align: center;
+    }
+  </style>
+
+  <div class="information hidden">
+    <h1 class="title">Title</h1>
+    <p class="subject">Subject</p>
+    <p class="description">Description</p>
+    <button class="ok">Ok!</button>
+  </div>
+
+  <div class="question hidden">
+    <h1 class="title">Tell me!</h1>
+    <p class="subject">Question</p>
+    <div class="choices">
+      <button class="choice0">Choice 0</button>
+      <button class="choice1">Choice 1</button>
+      <button class="choice2">Choice 2</button>
+      <button class="choice3">Choice 3</button>
+    </div>
+  </div>
+</template>
+  
+<script>
+/**
+ * A MessAge.
+ */
+class MessAge extends HTMLElement {
+  /**
+   * Constructor.
+   */
+  constructor() {
+    super()
+
+    /**
+     * Shadow DOM of our tag.
+     * @member {ShadowRoot}
+     */
+    this.root = this.attachShadow({ mode: 'open' })
+    this.root.appendChild(MessAge.template.cloneNode(true))
+
+    /**
+     * The message elements.
+     * @member {HTMLElement}
+     * @private
+     */
+    this.message = {
+      container: this.root.querySelector(".information"),
+      title: this.root.querySelector(".information .title"),
+      subject: this.root.querySelector(".information .subject"),
+      description: this.root.querySelector(".information .description"),
+      button: this.root.querySelector(".ok")
+    }
+
+    /**
+     * The question elements.
+     * @member {HTMLElement}
+     * @private
+     */
+    this.question = {
+      container: this.root.querySelector(".question"),
+      title: this.root.querySelector(".question .title"),
+      subject: this.root.querySelector(".question .subject"),
+      description: this.root.querySelector(".question .description"),
+      buttons: [
+        this.root.querySelector(".choice0"),
+        this.root.querySelector(".choice1"),
+        this.root.querySelector(".choice2"),
+        this.root.querySelector(".choice3")
+      ]
+    }
+  }
+
+  hideMessage() {
+    this.message.container.classList.add("hidden")
+  }
+
+  showMessage(title, subject, description) {
+    this.hideQuestion()
+
+    this.message.title.innerHTML = title
+    this.message.subject.innerHTML = subject
+    this.message.description.innerHTML = description
+
+    this.message.container.classList.remove("hidden")
+
+    return new Promise((resolve, reject) => {
+      const whenClicked = () => {
+        this.hideMessage()
+
+        this.message.button.removeEventListener("click", whenClicked)
+
+        resolve()
+      }
+
+      this.message.button.focus()
+      this.message.button.addEventListener("click", whenClicked)
+    })
+  }
+
+  hideQuestion() {
+    this.question.container.classList.add("hidden")
+  }
+
+  showQuestion(title, subject, choices) {
+    this.hideMessage()
+
+    this.question.title.innerHTML = title
+    this.question.subject.innerHTML = subject
+    choices.forEach(
+      (value, index) => this.question.buttons[index].innerHTML = value
+    )
+
+    this.question.container.classList.remove("hidden")
+
+    return new Promise((resolve, reject) => {
+      const whenClicked = event => {
+        const choice = event.target.className.substr(-1, 1)
+        this.hideQuestion()
+
+        this.question.buttons.forEach(button =>
+          button.removeEventListener("click", whenClicked)
+        )
+
+        resolve(choice)
+      }
+
+      this.question.buttons.forEach(button =>
+        button.addEventListener("click", whenClicked)
+      )
+      this.question.buttons[0].focus()
+    })
+  }
+}
+
+(function(local) {
+  MessAge.template = local.querySelector(".mess-age-template").content
+})(document.currentScript.ownerDocument)
+
+customElements.define('mess-age', MessAge)
+</script>
