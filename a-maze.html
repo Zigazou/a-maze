@@ -19,6 +19,8 @@
       top: 0;
       left: 0;
     }
+
+    .hidden { display: none; }
   </style>
 
   <div class="container">
@@ -341,6 +343,14 @@ class AMaze extends HTMLElement {
     return this
   }
 
+  hideMap() {
+    this.lightCanvas.classList.remove("hidden")
+  }
+
+  revealMap() {
+    this.lightCanvas.classList.add("hidden")
+  }
+
   switchOffTheLight() {
     const ctx = this.lightCanvas.getContext('2d')
     ctx.globalCompositeOperation = 'source-over'
@@ -371,17 +381,6 @@ class AMaze extends HTMLElement {
       dstCol * this.cellSize, dstRow * this.cellSize,
       this.cellSize, this.cellSize
     )
-  }
-
-  showMessage(title, subject, description) {
-    this.message.title.innerHTML = title
-    this.message.subject.innerHTML = subject
-    this.message.description.innerHTML = description
-    this.message.container.classList.remove("hidden")
-  }
-
-  hideMessage() {
-    this.message.container.classList.add("hidden")
   }
 }
 

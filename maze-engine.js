@@ -5,7 +5,14 @@ class MazeEngine {
         this.objects = []
         this.maze = maze
         this.message = message
-        this.hero = { x: 0, y: 0 }
+        this.hero = {
+            x: 0,
+            y: 0,
+            health: 100,
+            attack: 10,
+            defense: 0,
+            treasure: 0
+        }
         this.showingMessage = false
     }
 
@@ -79,32 +86,140 @@ class MazeEngine {
         this.hero.y = y
     }
 
+    deleteObject(object) {
+        this.objects.find((o, index) => {
+            if(o === object) {
+                this.objects.splice(index, 1)
+                return true
+            }
+
+            return false
+        })
+    }
+
     objectAt(x, y) {
         return this.objects.find(object => object.x === x && object.y === y)
     }
 
-    handleObjectfood(object) {
+    handleObjectedible(object) {
         this.showingMessage = true
         this.message.showMessage(
             "You eat some…",
             object.name,
             "Your health increases"
         ).then(() => {
-            object.visible = false
+            this.deleteObject(object)
+            this.hero.health += object.properties.health.value
             this.maze.drawObjects()
             this.changePosition(object.x, object.y)
             this.showingMessage = false
         })
     }
 
-    handleObjectattack(object) {
+    handleObjectinedible(object) {
+        this.showingMessage = true
+        this.message.showMessage(
+            "You eat some…",
+            object.name,
+            "Your health increases"
+        ).then(() => {
+            this.deleteObject(object)
+            this.hero.health -= object.properties.health.value
+            this.maze.drawObjects()
+            this.changePosition(object.x, object.y)
+            this.showingMessage = false
+        })
+    }
+
+    handleObjectshow(object) {
+        const target = this.objects.find(
+            o => o.id === object.properties.object.value
+        )
+
+        if(target) {
+            target.visible = true
+            this.maze.drawObjects()
+        }
+
+        this.changePosition(object.x, object.y)
+    }
+
+    handleObjecthide(object) {
+        const target = this.objects.find(
+            o => o.id === object.properties.object.value
+        )
+
+        if(target)  {
+            target.visible = false
+            this.maze.drawObjects()
+        }
+
+        this.changePosition(object.x, object.y)
+    }
+
+    handleObjectshowmap(object) {
+        this.maze.revealMap()
+        this.changePosition(object.x, object.y)
+    }
+
+    handleObjecthidemap(object) {
+        this.maze.hideMap()
+        this.changePosition(object.x, object.y)
+    }
+
+    handleObjectweapon(object) {
         this.showingMessage = true
         this.message.showMessage(
             "You found…",
             object.name,
-            "Your attack increases"
+            "Your defense increases"
         ).then(() => {
-            object.visible = false
+            this.hero.attack += object.properties.attack.value
+            this.deleteObject(object)
+            this.maze.drawObjects()
+            this.changePosition(object.x, object.y)
+            this.showingMessage = false
+        })
+    }
+
+    handleObjectsecret(object) {
+        this.showingMessage = true
+        this.message.showMessage(
+            object.properties.title.value,
+            object.properties.subject.value,
+            object.properties.description.value
+        ).then(() => {
+            this.deleteObject(object)
+            this.maze.drawObjects()
+            this.changePosition(object.x, object.y)
+            this.showingMessage = false
+        })
+    }
+
+    handleObjectprotection(object) {
+        this.showingMessage = true
+        this.message.showMessage(
+            "You found…",
+            object.name,
+            "Your protection increases"
+        ).then(() => {
+            this.hero.defense += object.properties.defense.value
+            this.deleteObject(object)
+            this.maze.drawObjects()
+            this.changePosition(object.x, object.y)
+            this.showingMessage = false
+        })
+    }
+
+    handleObjecttreasure(object) {
+        this.showingMessage = true
+        this.message.showMessage(
+            "You found…",
+            object.name,
+            "You are richer"
+        ).then(() => {
+            this.hero.treasure += object.properties.treasure.value
+            this.deleteObject(object)
             this.maze.drawObjects()
             this.changePosition(object.x, object.y)
             this.showingMessage = false
@@ -150,7 +265,7 @@ class MazeEngine {
             }
         }).then(() => {
             if(success) {
-                object.visible = false
+                this.deleteObject(object)
                 this.maze.drawObjects()
                 this.changePosition(object.x, object.y)
             }

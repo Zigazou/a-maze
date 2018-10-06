@@ -4,6 +4,10 @@
     font-weight: normal;
   }
 
+body {
+    background-color: black;
+}
+
 a-maze {
     display: block;
     margin: 0 auto;
