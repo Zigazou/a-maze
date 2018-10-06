@@ -1,0 +1,96 @@
+<template class="score-board-template">
+  <style>
+    @keyframes pop {
+      from { transform: scale(1); }
+      to   { transform: scale(2); }
+    }    
+
+    .pop { animation: 0.2s ease 0s 4 alternate pop; }
+
+    .score-board {
+      display: inline-block;
+      position: relative;
+      color: white;
+      font-family: OwreKynge, serif;
+      text-align: left;
+    }
+
+    h1 {
+      font-weight: normal;
+      font-size: 180%;
+      font-family: OwreKynge, serif;
+      margin-bottom: 0;
+      margin-top: 0.3em;
+    }
+
+    p {
+      font-size: 150%;
+      margin: 0;
+    }
+
+    span {
+      display: inline-block;
+      position: absolute;
+      right: 0;
+    }
+  </style>
+
+  <div class="score-board">
+    <h1>Score board</h1>
+    <p>Health: <span class="health">0</span></p>
+    <p>Attack: <span class="attack">0</span></p>
+    <p>Defense: <span class="defense">0</span></p>
+    <p>Wealth: <span class="wealth">0</span></p>
+  </div>
+</template>
+  
+<script>
+/**
+ * A Score Board.
+ */
+class ScoreBoard extends HTMLElement {
+  /**
+   * Constructor.
+   */
+  constructor() {
+    super()
+
+    /**
+     * Shadow DOM of our tag.
+     * @member {ShadowRoot}
+     */
+    this.root = this.attachShadow({ mode: 'open' })
+    this.root.appendChild(ScoreBoard.template.cloneNode(true))
+
+    /**
+     * The board elements.
+     * @member {HTMLElement}
+     * @private
+     */
+    this.board = {
+      health: this.root.querySelector(".health"),
+      attack: this.root.querySelector(".attack"),
+      defense: this.root.querySelector(".defense"),
+      wealth: this.root.querySelector(".wealth")
+    }
+  }
+
+  setScore(property, value) {
+    if(property in this.board) {
+      this.board[property].classList.remove("pop")
+      this.board[property].innerHTML = value
+
+      // Hack to force animation to restart
+      void this.board[property].offsetWidth
+
+      this.board[property].classList.add("pop")
+    }
+  }
+}
+
+(function(local) {
+  ScoreBoard.template = local.querySelector(".score-board-template").content
+})(document.currentScript.ownerDocument)
+
+customElements.define('score-board', ScoreBoard)
+</script>

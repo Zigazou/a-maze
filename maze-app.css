@@ -2,13 +2,36 @@
     font-family: OwreKynge;
     src: url(owrekynge/OwreKynge.ttf);
     font-weight: normal;
-  }
+}
 
 body {
     background-color: black;
+    color: white;
 }
 
-a-maze {
+.board {
+    display: grid;
+    grid-template-areas: "maze maze"
+                         "joystick score";
+    grid-template-columns: minmax(auto, 100%) 10em;
+
+    background-image: url(message-background.jpg);
+    background-size: cover;
+}
+
+.board a-maze {
     display: block;
-    margin: 0 auto;
+    grid-area: maze;
+    width: 100%;
+}
+
+.board joy-stick {
+    grid-area: joystick;
+    align-self: center;
+}
+
+.board score-board {
+    grid-area: score;
+    align-self: center;
+    text-align: right;
 }

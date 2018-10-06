@@ -1,10 +1,11 @@
 class MazeEngine {
-    constructor(maze, message) {
+    constructor(maze, message, score) {
         this.gameMap = {}
         this.walls = [[]]
         this.objects = []
         this.maze = maze
         this.message = message
+        this.score = score
         this.hero = {
             x: 0,
             y: 0,
@@ -13,6 +14,12 @@ class MazeEngine {
             defense: 0,
             treasure: 0
         }
+
+        this.score.setScore("health", this.hero.health)
+        this.score.setScore("attack", this.hero.attack)
+        this.score.setScore("defense", this.hero.defense)
+        this.score.setScore("wealth", this.hero.treasure)
+
         this.showingMessage = false
     }
 
@@ -110,6 +117,7 @@ class MazeEngine {
         ).then(() => {
             this.deleteObject(object)
             this.hero.health += object.properties.health.value
+            this.score.setScore("health", this.hero.health)
             this.maze.drawObjects()
             this.changePosition(object.x, object.y)
             this.showingMessage = false
@@ -125,6 +133,7 @@ class MazeEngine {
         ).then(() => {
             this.deleteObject(object)
             this.hero.health -= object.properties.health.value
+            this.score.setScore("health", this.hero.health)
             this.maze.drawObjects()
             this.changePosition(object.x, object.y)
             this.showingMessage = false
@@ -175,6 +184,7 @@ class MazeEngine {
             "Your defense increases"
         ).then(() => {
             this.hero.attack += object.properties.attack.value
+            this.score.setScore("attack", this.hero.attack)
             this.deleteObject(object)
             this.maze.drawObjects()
             this.changePosition(object.x, object.y)
@@ -204,6 +214,7 @@ class MazeEngine {
             "Your protection increases"
         ).then(() => {
             this.hero.defense += object.properties.defense.value
+            this.score.setScore("defense", this.hero.defense)
             this.deleteObject(object)
             this.maze.drawObjects()
             this.changePosition(object.x, object.y)
@@ -218,7 +229,8 @@ class MazeEngine {
             object.name,
             "You are richer"
         ).then(() => {
-            this.hero.treasure += object.properties.treasure.value
+            this.hero.treasure += object.properties.fortune.value
+            this.score.setScore("wealth", this.hero.treasure)
             this.deleteObject(object)
             this.maze.drawObjects()
             this.changePosition(object.x, object.y)

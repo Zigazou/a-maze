@@ -1,16 +1,38 @@
 <template class="joy-stick-template">
   <style>
-    .direction { text-align: center; }
-    button { font-size: 250%; }
+    .direction {
+      display: grid;
+      grid-template-areas: "left up right"
+                           "left down right";
+    }
+
+    button {
+      font-size: 250%;
+      background-color: #303030;
+      color: white;
+      border: none;
+      margin: 0.1em;
+    }
+
+    button:active {
+      outline: 0.2em solid white;
+    }
+
+    button:hover {
+      background-color: #202020;
+    }
+
+    .up { grid-area: up; }
+    .left { grid-area: left; }
+    .right { grid-area: right; }
+    .down { grid-area: down; }
   </style>
   
   <div class="direction">
-    <div><button class="up">↑</button></div>
-    <div>
-      <button class="left">←</button>
-      <button class="right">→</button>
-    </div>
-    <div><button class="down">↓</button></div>
+    <button class="up">▲</button>
+    <button class="left">◀</button>
+    <button class="right">▶</button>
+    <button class="down">▼</button>
   </div>
 </template>
   

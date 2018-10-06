@@ -8,6 +8,7 @@ class MazeApp {
         Promise.all([
             customElements.whenDefined("a-maze"),
             customElements.whenDefined("mess-age"),
+            customElements.whenDefined("score-board"),
             customElements.whenDefined("joy-stick")
         ])
         .then(() => fetch(gameMapURL, { method: "get" }))
@@ -15,11 +16,12 @@ class MazeApp {
         .then(gameMap => {
             this.gameMap = gameMap
             this.message = document.getElementById("message")
+            this.score = document.getElementById("score")
 
             this.maze.setAttribute("cell-size", this.gameMap.tilewidth)
             this.maze.setAttribute("tiles-url", this.gameMap.tilesets[0].image)
 
-            this.engine = new MazeEngine(this.maze, this.message)
+            this.engine = new MazeEngine(this.maze, this.message, this.score)
 
             return this.engine.loadMap(this.gameMap)
         })

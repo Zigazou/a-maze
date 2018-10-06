@@ -71,6 +71,12 @@
                  "height":32,
                  "id":4,
                  "name":"blue sword",
+                 "properties":[
+                        {
+                         "name":"attack",
+                         "type":"int",
+                         "value":10
+                        }],
                  "rotation":0,
                  "type":"weapon",
                  "visible":true,

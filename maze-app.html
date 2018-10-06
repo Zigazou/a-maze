@@ -6,13 +6,17 @@
     <link rel="import" href="a-maze.html">
     <link rel="import" href="joy-stick.html">
     <link rel="import" href="mess-age.html">
+    <link rel="import" href="score-board.html">
     <link rel="stylesheet" href="maze-app.css">
   </head>
   <body>
-    <a-maze id="maze"></a-maze>
     <mess-age id="message"></mess-age>
 
-    <joy-stick id="joystick"></joy-stick>
+    <div class="board">
+      <a-maze id="maze"></a-maze>
+      <joy-stick id="joystick"></joy-stick>
+      <score-board id="score"></score-board>
+    </div>
 
     <script src="maze-engine.js"></script>
     <script src="maze-app.js"></script>
