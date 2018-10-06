@@ -1,0 +1,24 @@
+@font-face {
+    font-family: OwreKynge;
+    src: url(owrekynge/OwreKynge.ttf);
+    font-weight: normal;
+}
+
+h1, h2, h3 {
+    color: lightgreen;
+    font-weight: normal;
+}
+
+body {
+    font-family: OwreKynge, serif;
+    background-color: black;
+    font-size: 200%;
+    color: #DDD;
+    padding: 1em;
+}
+
+p, ul { margin: 0.4em 0; }
+
+a { color: yellow; }
+
+.levels a:visited { color: grey; }

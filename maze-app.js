@@ -2,10 +2,13 @@ class MazeApp {
     constructor(maze) {
         this.maze = maze
         this.gameMap = undefined
+        this.engine = undefined
+        this.message = undefined
+        this.score = undefined
     }
 
     run(gameMapURL) {
-        Promise.all([
+        return Promise.all([
             customElements.whenDefined("a-maze"),
             customElements.whenDefined("mess-age"),
             customElements.whenDefined("score-board"),
@@ -23,13 +26,11 @@ class MazeApp {
 
             this.engine = new MazeEngine(this.maze, this.message, this.score)
 
-            return this.engine.loadMap(this.gameMap)
-        })
-        .then(() => {
-            this.engine.initHero(2909, 18, 14)
             document.getElementById("joystick").addEventListener(
                 "joystick-move", e => this.engine.moveHero(e.detail)
             )
+
+            return this.engine.loadMap(this.gameMap)
         })
     }
 }

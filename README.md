@@ -28,9 +28,15 @@ Creating your own maze
 
 Mazes are created using [Tiled, a level editor](https://www.mapeditor.org/).
 
-### File format
+### The map
 
-Files must use the **JSON format**.
+The map must use the **JSON format** produced by Tiled.
+
+The map **must have** thses custom properties:
+
+- `darkness`: bool, true if the map starts in the dark, false otherwise.
+- `startx`, `starty`: int, coordinates at which the player starts the adventure.
+- `herosprite`: int, the id of the sprite representing the player.
 
 ### Layers
 
@@ -71,6 +77,7 @@ Here are the **object types** understood by the game engine:
 - `showmap`: reveal the entire map.
 - `hidemap`: hide the entire map except around the hero.
 - `treasure`: a treasure.
+- `win`: the item the player has to find to end the level.
 
 Each object has its own **custom properties** set.
 
@@ -138,3 +145,11 @@ This custom property **must exist**:
 This custom property **must exist**:
 
 - `treasure`: int, increase the wealthness (ie: 10)
+
+#### `win`
+
+These custom properties **must exist**:
+
+- `title`: string, a title or an introduction text (ie: "Did you know?")
+- `subject`: string, the secret (ie: "The ring is blue")
+- `description`: string, a description (ie: "A guardian may like this")

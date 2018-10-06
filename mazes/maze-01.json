@@ -274,6 +274,34 @@
                  "width":32,
                  "x":576,
                  "y":192
+                }, 
+                {
+                 "gid":1291,
+                 "height":32,
+                 "id":25,
+                 "name":"win",
+                 "properties":[
+                        {
+                         "name":"description",
+                         "type":"string",
+                         "value":"Go to the next level!"
+                        }, 
+                        {
+                         "name":"subject",
+                         "type":"string",
+                         "value":"you found the item"
+                        }, 
+                        {
+                         "name":"title",
+                         "type":"string",
+                         "value":"You win!"
+                        }],
+                 "rotation":0,
+                 "type":"win",
+                 "visible":true,
+                 "width":32,
+                 "x":480,
+                 "y":352
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -282,8 +310,29 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":25,
+ "nextobjectid":26,
  "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"darkness",
+         "type":"bool",
+         "value":false
+        }, 
+        {
+         "name":"herosprite",
+         "type":"int",
+         "value":2909
+        }, 
+        {
+         "name":"startx",
+         "type":"int",
+         "value":18
+        }, 
+        {
+         "name":"starty",
+         "type":"int",
+         "value":14
+        }],
  "renderorder":"left-up",
  "tiledversion":"1.2.0",
  "tileheight":32,

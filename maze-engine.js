@@ -21,6 +21,8 @@ class MazeEngine {
         this.score.setScore("wealth", this.hero.treasure)
 
         this.showingMessage = false
+
+        this.endGame = undefined
     }
 
     loadMap(gameMap) {
@@ -30,6 +32,12 @@ class MazeEngine {
             "background": undefined,
             "objects": undefined,
             "walls": undefined
+        }
+
+        if(gameMap.properties) {
+            gameMap.properties.forEach(
+                property => gameMap.properties[property.name] = property
+            )
         }
 
         gameMap.layers.forEach(layer => {
@@ -49,9 +57,22 @@ class MazeEngine {
         this.walls = layers.walls
         this.objects = layers.objects
 
-        return this.maze.loadGrid(
-            layers.background, layers.objects, layers.walls
-        )
+        this.maze.loadGrid(layers.background, layers.objects, layers.walls)
+            .then(() => {
+                if(this.gameMap.properties.darkness.value === false) {
+                    this.maze.revealMap()
+                }
+
+                this.initHero(
+                    this.gameMap.properties.herosprite.value,
+                    this.gameMap.properties.startx.value,
+                    this.gameMap.properties.starty.value
+                )
+            })
+
+        return new Promise((resolve, reject) => {
+            this.endGame = value => resolve(value)
+        })
     }
 
     initHero(offset, col, row) {
@@ -129,7 +150,7 @@ class MazeEngine {
         this.message.showMessage(
             "You eat some…",
             object.name,
-            "Your health increases"
+            "Your health decreases"
         ).then(() => {
             this.deleteObject(object)
             this.hero.health -= object.properties.health.value
@@ -181,7 +202,7 @@ class MazeEngine {
         this.message.showMessage(
             "You found…",
             object.name,
-            "Your defense increases"
+            "Your attack increases"
         ).then(() => {
             this.hero.attack += object.properties.attack.value
             this.score.setScore("attack", this.hero.attack)
@@ -211,7 +232,7 @@ class MazeEngine {
         this.message.showMessage(
             "You found…",
             object.name,
-            "Your protection increases"
+            "Your defense increases"
         ).then(() => {
             this.hero.defense += object.properties.defense.value
             this.score.setScore("defense", this.hero.defense)
@@ -244,6 +265,14 @@ class MazeEngine {
         )
 
         this.changePosition(destination.x, destination.y)
+    }
+
+    handleObjectwin(object) {
+        this.message.showMessage(
+            object.properties.title.value,
+            object.properties.subject.value,
+            object.properties.description.value
+        ).then(() => this.endGame())
     }
 
     handleObjectquestion(object) {
