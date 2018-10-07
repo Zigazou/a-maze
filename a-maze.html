@@ -32,7 +32,6 @@
     <canvas class="hero"></canvas>
     <canvas class="light"></canvas>
   </div>
-
 </template>
 
 <script>
@@ -51,7 +50,7 @@ class AMaze extends HTMLElement {
      * Column count of the grid.
      * @member {number}
      */
-    this.gridColumns = 0
+    this.gridCols = 0
 
     /**
      * Row count of the grid.
@@ -76,6 +75,30 @@ class AMaze extends HTMLElement {
      * @member {Image}
      */
     this.spriteSheet = undefined
+
+    /**
+     * Top column.
+     * @member {number}
+     */
+    this.topCol = 0
+
+    /**
+     * Visible rows.
+     * @member {number}
+     */
+    this.topRow = 0
+
+    /**
+     * Visible columns.
+     * @member {number}
+     */
+    this.visibleCols = 0
+
+    /**
+     * Visible rows.
+     * @member {number}
+     */
+    this.visibleRows = 0
 
     /**
      * Sprite column count in the sprite sheet.
@@ -103,7 +126,7 @@ class AMaze extends HTMLElement {
      */
      this.decor = [[]]
 
-/**
+    /**
      * Objects positions.
      * @member {Object[]}
      */
@@ -195,7 +218,7 @@ class AMaze extends HTMLElement {
    * @return {string[]}
    */
   static get observedAttributes() {
-    return ["cell-size", "tiles-url"]
+    return ["cell-size", "tiles-url", "visible-columns", "visible-rows"]
   }
 
   /**
@@ -206,9 +229,13 @@ class AMaze extends HTMLElement {
    */
   attributeChangedCallback(name, oldValue, newValue) {
     if(name === "cell-size") {
-      this.cellSize = newValue
+      this.cellSize = parseInt(newValue)
     } else if(name === "tiles-url") {
       this.tilesURL = newValue
+    } else if(name === "visible-columns") {
+      this.visibleCols = parseInt(newValue)
+    } else if(name === "visible-rows") {
+      this.visibleRows = parseInt(newValue)
     }
   }
 
@@ -233,10 +260,14 @@ class AMaze extends HTMLElement {
 
     // Resize the canvases
     canvases.map(canvas => {
-      canvas.width = this.gridColumns * this.cellSize
-      canvas.height = this.gridRows * this.cellSize
+      canvas.width = this.visibleCols * this.cellSize
+      canvas.height = this.visibleRows * this.cellSize
     })
 
+    this.redrawScreen()
+  }
+
+  redrawScreen() {
     // Switch off the lights
     this.switchOffTheLight()
 
@@ -253,9 +284,22 @@ class AMaze extends HTMLElement {
 
     // Draw elements.
     tiles.forEach((row, y) => {
+      // Ignore non visible rows
+      if(y < this.topRow || y >= this.topRow + this.visibleRows) {
+        return
+      }
+
       row.forEach((coords, x) => {
+        // Ignore non visible columns
+        if(x < this.topCol || x >= this.topCol + this.visibleCols) {
+          return
+        }
+
         if(coords.offset >= 0) {
-          this.copySprite(canvas, coords.x, coords.y, x, y)
+          this.copySprite(
+            canvas, coords.x,
+            coords.y, x - this.topCol, y - this.topRow
+          )
         }
       })
     })
@@ -269,9 +313,23 @@ class AMaze extends HTMLElement {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     this.objects.forEach(object => {
-      if(object.visible) {
-        this.copySprite(canvas, object.srcX, object.srcY, object.x, object.y)
+      if(object.x < this.topCol || object.x >= this.topCol + this.visibleCols) {
+        return
       }
+
+      if(object.y < this.topRow || object.y >= this.topRow + this.visibleRows) {
+        return
+      }
+
+      if(!object.visible) {
+        return
+      }
+
+      this.copySprite(
+        canvas,
+        object.srcX, object.srcY,
+        object.x - this.topCol, object.y - this.topRow
+      )
     })
   }
 
@@ -289,7 +347,7 @@ class AMaze extends HTMLElement {
       this.decor = decor
       this.objects = objects
       this.walls = walls
-      this.gridColumns = this.grid[0].length
+      this.gridCols = this.grid[0].length
       this.gridRows = this.grid.length
       this.resetCanvases()
     })
@@ -316,12 +374,35 @@ class AMaze extends HTMLElement {
     this.heroCol = col
     this.heroRow = row
 
+    // Calculate window offset.
+    if(col < this.topCol + 2 || col > this.topCol + this.visibleCols - 2) {
+      this.topCol = Math.floor(col - this.visibleCols / 2)
+      if(this.topCol < 0) this.topCol = 0
+      if(this.topCol + this.visibleCols > this.gridCols) {
+        this.topCol = this.gridCols - this.visibleCols
+      }
+    }
+
+    if(row < this.topRow + 2 || row > this.topRow + this.visibleRows - 2) {
+      this.topRow = Math.floor(row - this.visibleRows / 2)
+      if(this.topRow < 0) this.topRow = 0
+      if(this.topRow + this.visibleRows > this.gridRows) {
+        this.topRow = this.gridRows - this.visibleRows
+      }
+    }
+
+    this.redrawScreen()
+
     // Clear the canvas
     const ctx = this.heroCanvas.getContext('2d')
     ctx.clearRect(0, 0, this.heroCanvas.width, this.heroCanvas.height)
 
     // Draw hero
-    this.copySprite(this.heroCanvas, this.heroSrcCol, this.heroSrcRow, col, row)
+    this.copySprite(
+      this.heroCanvas,
+      this.heroSrcCol, this.heroSrcRow,
+      col - this.topCol, row - this.topRow
+    )
 
     return this
   }
@@ -345,8 +426,8 @@ class AMaze extends HTMLElement {
    */
   lighten(column, row) {
     const ctx = this.lightCanvas.getContext('2d')
-    const x = column * this.cellSize + this.cellSize / 2
-    const y = row * this.cellSize + this.cellSize / 2
+    const x = (column - this.topCol) * this.cellSize + this.cellSize / 2
+    const y = (row - this.topRow) * this.cellSize + this.cellSize / 2
     const inner = this.cellSize / 1.5
     const outer = this.cellSize * 3
 
