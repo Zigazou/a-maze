@@ -46,6 +46,8 @@ There **must be** 3 layers, from top to bottom, named exactly:
   game, see the next section for more information.
 - `walls`: a tile layer, the walls cannot be crossed, any other cell must be
   left empty (transparent) to allow the player to move.
+- `decor`: a tile layer, completely decorative, it allows to draw more elaborate
+  level design.
 - `background`: a tile layer, the background is only decorative, it plays
   absolutely no role in the game.
 
