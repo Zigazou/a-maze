@@ -26,6 +26,7 @@
   <div class="container">
     <!-- A stack of canvases. -->
     <canvas class="background"></canvas>
+    <canvas class="decor"></canvas>
     <canvas class="walls"></canvas>
     <canvas class="objects"></canvas>
     <canvas class="hero"></canvas>
@@ -96,6 +97,13 @@ class AMaze extends HTMLElement {
     this.grid = [[]]
 
     /**
+     * A 2 dimensional array containing objects with coordinates to the sprite
+     * sheet.
+     * @member {Object[][]}
+     */
+     this.decor = [[]]
+
+/**
      * Objects positions.
      * @member {Object[]}
      */
@@ -132,6 +140,13 @@ class AMaze extends HTMLElement {
      * @private
      */
     this.backgroundCanvas = this.root.querySelector("canvas.background")
+
+    /**
+     * Decor canvas.
+     * @member {HTMLCanvasElement}
+     * @private
+     */
+    this.decorCanvas = this.root.querySelector("canvas.decor")
 
     /**
      * Objects canvas.
@@ -209,6 +224,7 @@ class AMaze extends HTMLElement {
 
     const canvases = [
       this.backgroundCanvas,
+      this.decorCanvas,
       this.wallsCanvas,
       this.objectsCanvas,
       this.heroCanvas,
@@ -225,6 +241,7 @@ class AMaze extends HTMLElement {
     this.switchOffTheLight()
 
     this.redraw(this.backgroundCanvas, this.grid)
+    this.redraw(this.decorCanvas, this.decor)
     this.redraw(this.wallsCanvas, this.walls)
     this.drawObjects()
   }
@@ -263,11 +280,13 @@ class AMaze extends HTMLElement {
    * @param {Object[][]}
    * @param {Object[][]}
    * @param {Object[][]}
+   * @param {Object[][]}
    * @return {Promise}
    */
-  loadGrid(grid, objects, walls) {
+  loadGrid(grid, decor, objects, walls) {
     return this.loadSprites().then(() => {
       this.grid = grid
+      this.decor = decor
       this.objects = objects
       this.walls = walls
       this.gridColumns = this.grid[0].length

@@ -30,6 +30,7 @@ class MazeEngine {
         const sheetWidth = gameMap.tilesets[0].columns
         const layers = {
             "background": undefined,
+            "decor": undefined,
             "objects": undefined,
             "walls": undefined
         }
@@ -57,18 +58,22 @@ class MazeEngine {
         this.walls = layers.walls
         this.objects = layers.objects
 
-        this.maze.loadGrid(layers.background, layers.objects, layers.walls)
-            .then(() => {
-                if(this.gameMap.properties.darkness.value === false) {
-                    this.maze.revealMap()
-                }
+        this.maze.loadGrid(
+            layers.background,
+            layers.decor,
+            layers.objects,
+            layers.walls
+        ).then(() => {
+            if(this.gameMap.properties.darkness.value === false) {
+                this.maze.revealMap()
+            }
 
-                this.initHero(
-                    this.gameMap.properties.herosprite.value,
-                    this.gameMap.properties.startx.value,
-                    this.gameMap.properties.starty.value
-                )
-            })
+            this.initHero(
+                this.gameMap.properties.herosprite.value,
+                this.gameMap.properties.startx.value,
+                this.gameMap.properties.starty.value
+            )
+        })
 
         return new Promise((resolve, reject) => {
             this.endGame = value => resolve(value)
