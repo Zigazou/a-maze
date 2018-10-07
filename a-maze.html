@@ -374,22 +374,8 @@ class AMaze extends HTMLElement {
     this.heroCol = col
     this.heroRow = row
 
-    // Calculate window offset.
-    if(col < this.topCol + 2 || col > this.topCol + this.visibleCols - 2) {
-      this.topCol = Math.floor(col - this.visibleCols / 2)
-      if(this.topCol < 0) this.topCol = 0
-      if(this.topCol + this.visibleCols > this.gridCols) {
-        this.topCol = this.gridCols - this.visibleCols
-      }
-    }
-
-    if(row < this.topRow + 2 || row > this.topRow + this.visibleRows - 2) {
-      this.topRow = Math.floor(row - this.visibleRows / 2)
-      if(this.topRow < 0) this.topRow = 0
-      if(this.topRow + this.visibleRows > this.gridRows) {
-        this.topRow = this.gridRows - this.visibleRows
-      }
-    }
+    this.topCol = Math.floor(col - this.visibleCols / 2)
+    this.topRow = Math.floor(row - this.visibleRows / 2)
 
     this.redrawScreen()
 
