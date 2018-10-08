@@ -1,16 +1,24 @@
 @font-face {
-    font-family: OwreKynge;
-    src: url(owrekynge/OwreKynge.ttf);
+    font-family: Gothic;
+    src: url("fonts/Berry Rotunda.ttf");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Text;
+    src: url("fonts/LinBiolinum_R.ttf");
     font-weight: normal;
 }
 
 h1, h2, h3 {
+    font-family: Gothic, serif;
     color: lightgreen;
     font-weight: normal;
 }
 
 body {
-    font-family: OwreKynge, serif;
+    font-family: Text, sans-serif;
+    line-height: 150%;
     background-color: black;
     font-size: 200%;
     color: #DDD;

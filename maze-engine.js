@@ -167,12 +167,11 @@ class MazeEngine {
     }
 
     handleObjectshow(object) {
-        const target = this.objects.find(
-            o => o.id === object.properties.object.value
-        )
+        const objectIDs = MazeEngine.toList(object.properties.object.value)
+        const targets = this.objects.filter(o => objectIDs.indexOf(o.id) >= 0)
 
-        if(target) {
-            target.visible = true
+        if(targets.length !== 0) {
+            targets.forEach(object => object.visible = true)
             this.maze.drawObjects()
         }
 
@@ -180,12 +179,11 @@ class MazeEngine {
     }
 
     handleObjecthide(object) {
-        const target = this.objects.find(
-            o => o.id === object.properties.object.value
-        )
+        const objectIDs = MazeEngine.toList(object.properties.object.value)
+        const targets = this.objects.filter(o => objectIDs.indexOf(o.id) >= 0)
 
-        if(target)  {
-            target.visible = false
+        if(targets.length !== 0) {
+            targets.forEach(object => object.visible = false)
             this.maze.drawObjects()
         }
 
@@ -319,6 +317,10 @@ class MazeEngine {
             this.showingMessage = false
         })
     }
+}
+
+MazeEngine.toList = function(value) {
+    return value.toString().split(',').map(a => parseInt(a))
 }
 
 MazeEngine.convertObjects = function(objects, sheetWidth) {
