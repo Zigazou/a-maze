@@ -1,23 +1,40 @@
 <html>
   <head>
     <meta charset="utf8">
+
+    <!-- Be nice to mobile browsers -->
     <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=2.0, width=device-width" />
+
+    <!-- Polyfill HTML import for Firefox. Firefox may also need you to 
+         enable webcomponents (custom elements and shadow DOM) via about:config
+    -->
     <script src="html-imports.min.js"></script>
+
+    <!-- Import the game custom elements -->
     <link rel="import" href="a-maze.html">
     <link rel="import" href="joy-stick.html">
     <link rel="import" href="mess-age.html">
     <link rel="import" href="score-board.html">
+
     <link rel="stylesheet" href="play-maze.css">
   </head>
   <body>
+    <!-- The message board used to inform or question the player -->
     <mess-age id="message"></mess-age>
 
     <div class="board">
+      <!-- The board on which is drawn the maze -->
       <a-maze id="maze" visible-columns="10" visible-rows="10"></a-maze>
+
+      <!-- The joystick handles browser buttons for mobile and keyboard
+           keys for desktop -->
       <joy-stick id="joystick"></joy-stick>
+
+      <!-- The score board displays hero status -->
       <score-board id="score"></score-board>
     </div>
 
+    <!-- Load MazeEngine and MazeApp classes and run the game -->
     <script src="maze-engine.js"></script>
     <script src="maze-app.js"></script>
     <script src="play-maze.js"></script>

@@ -1,3 +1,4 @@
+<!-- The joy-stick custom element -->
 <template class="joy-stick-template">
   <style>
     .direction {
@@ -93,12 +94,15 @@ class JoyStick extends HTMLElement {
 
 /**
  * Key codes and their string equivalent
+ * @member {Object}
  */
 JoyStick.keyCodes = { 37: "left", 38: "up", 39: "right", 40: "down" };
 
+// Retrieve the joystick template.
 (function(local) {
   JoyStick.template = local.querySelector(".joy-stick-template").content
 })(document.currentScript.ownerDocument)
 
+// Defines the joy-stick custom element.
 customElements.define('joy-stick', JoyStick)
 </script>

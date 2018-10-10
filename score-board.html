@@ -1,5 +1,7 @@
+<!-- The score-board custom element -->
 <template class="score-board-template">
   <style>
+    /* Pop animation used when a value changes to draw player awareness. */
     @keyframes pop {
       from { transform: scale(1); }
       to   { transform: scale(2); }
@@ -66,7 +68,7 @@ class ScoreBoard extends HTMLElement {
 
     /**
      * The board elements.
-     * @member {HTMLElement}
+     * @member {HTMLElement[]}
      * @private
      */
     this.board = {
@@ -77,6 +79,11 @@ class ScoreBoard extends HTMLElement {
     }
   }
 
+  /**
+   * Set the value of a property.
+   * @param {string} property Name of the value.
+   * @param {string} value Value to show.
+   */
   setScore(property, value) {
     if(property in this.board) {
       this.board[property].classList.remove("pop")
@@ -90,9 +97,11 @@ class ScoreBoard extends HTMLElement {
   }
 }
 
+// Retrieve the ScoreBoard template.
 (function(local) {
   ScoreBoard.template = local.querySelector(".score-board-template").content
 })(document.currentScript.ownerDocument)
 
+// Defines the score-board custom element.
 customElements.define('score-board', ScoreBoard)
 </script>

@@ -1,3 +1,4 @@
+<!-- The mess-age custom element -->
 <template class="mess-age-template">
   <style>
     h1 { font-weight: normal; }
@@ -122,11 +123,21 @@ class MessAge extends HTMLElement {
     }
   }
 
+  /**
+   * Hide the message panel.
+   */
   hideMessage() {
     this.message.container.classList.add("hidden")
   }
 
-  showMessage(title, subject, description) {
+  /**
+   * Show the message panel.
+   * @param {string} title The title.
+   * @param {string} subject The subject.
+   * @param {string} description The description.
+   * @returns {Promise} A Promise resolved when the user clicked the ok button.
+   */
+   showMessage(title, subject, description) {
     this.hideQuestion()
 
     this.message.title.innerHTML = title
@@ -149,10 +160,20 @@ class MessAge extends HTMLElement {
     })
   }
 
+  /**
+   * Hide the question panel.
+   */
   hideQuestion() {
     this.question.container.classList.add("hidden")
   }
 
+  /**
+   * Show the question panel.
+   * @param {string} title The title.
+   * @param {string} subject The subject.
+   * @param {string} description The description.
+   * @returns {Promise} A Promise resolved when the user has selected an answer.
+   */
   showQuestion(title, subject, choices) {
     this.hideMessage()
 
@@ -184,9 +205,11 @@ class MessAge extends HTMLElement {
   }
 }
 
+// Retrieve the message template.
 (function(local) {
   MessAge.template = local.querySelector(".mess-age-template").content
 })(document.currentScript.ownerDocument)
 
+// Defines the mess-age custom element.
 customElements.define('mess-age', MessAge)
 </script>
