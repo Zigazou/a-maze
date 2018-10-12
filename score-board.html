@@ -10,43 +10,41 @@
     .pop { animation: 0.2s ease 0s 4 alternate pop; }
 
     .score-board {
+      display: flex;
       position: fixed;
-      position: relative;
+      top: 1em;
+      right: 0;
       color: white;
       font-family: Gothic, serif;
       text-align: left;
       user-select: none;
       line-height: 1.6em;
+      text-shadow: 0 0 0.2em black, 0 0 0.3em black;
     }
 
-    p {
-      font-size: 90%;
-      margin: 0;
-    }
-
+    /* Allow animation on specific spans */
     span.health, span.attack, span.defense, span.wealth {
       display: inline-block;
-      position: absolute;
-      right: 0;
+      margin-right: 1.5em;
     }
 
     span.bigger { font-size: 150%; }
   </style>
 
   <div class="score-board">
-    <div class="health">
+    <div>
       <span class="bigger">♥</span>
       <span class="health">0</span>
     </div>
-    <div class="attack">
+    <div>
       <span class="bigger">⚔</span>
       <span class="attack">0</span>
     </div>
-    <div class="defense">
+    <div>
       <span class="bigger">☂</span>
       <span class="defense">0</span>
     </div>
-    <div class="wealth">
+    <div>
       <span class="bigger">€</span>
       <span class="wealth">0</span>
     </div>
