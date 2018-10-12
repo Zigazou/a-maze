@@ -1,15 +1,9 @@
 <template class="a-maze-template">
   <style>
-    div.container { position: relative; }
-
-    /* The canvases will occupy as much space as possible. */
-    canvas {
+    div.container {
+      position: absolute;
       width: 100%;
-      image-rendering: -moz-crisp-edges;
-      image-rendering: -moz-crisp-edges;
-      image-rendering: -o-crisp-edges;
-      image-rendering: -webkit-optimize-contrast;
-      -ms-interpolation-mode: nearest-neighbor;
+      height: 100%;
     }
 
     /* The background canvas is the reference canvas, all the other canvases */
@@ -83,7 +77,7 @@ class AMaze extends HTMLElement {
     this.topCol = 0
 
     /**
-     * Visible rows.
+     * Top row.
      * @member {number}
      */
     this.topRow = 0
@@ -92,13 +86,19 @@ class AMaze extends HTMLElement {
      * Visible columns.
      * @member {number}
      */
-    this.visibleCols = 0
+    this.visibleCols = 1
 
     /**
      * Visible rows.
      * @member {number}
      */
-    this.visibleRows = 0
+    this.visibleRows = 1
+
+    /**
+     * Zoom level.
+     * @member {number}
+     */
+    this.zoom = 1
 
     /**
      * Sprite column count in the sprite sheet.
@@ -200,6 +200,13 @@ class AMaze extends HTMLElement {
     this.lightCanvas = this.root.querySelector("canvas.light")
 
     /**
+     * Container.
+     * @member {HTMLElement}
+     * @private
+     */
+    this.container = this.root.querySelector(".container")
+
+    /**
      * Message tags.
      * @member {HTMLCanvasElement[]}
      * @private
@@ -210,6 +217,11 @@ class AMaze extends HTMLElement {
       subject: this.root.querySelector(".subject"),
       description: this.root.querySelector(".description")
     }
+
+    window.addEventListener("resize", () => {
+      this.resetCanvases()
+      this.moveHero(this.heroCol, this.heroRow)
+    })
   }
 
   /**
@@ -218,7 +230,7 @@ class AMaze extends HTMLElement {
    * @return {string[]}
    */
   static get observedAttributes() {
-    return ["cell-size", "tiles-url", "visible-columns", "visible-rows"]
+    return ["cell-size", "tiles-url", "tile-zoom"]
   }
 
   /**
@@ -232,10 +244,8 @@ class AMaze extends HTMLElement {
       this.cellSize = parseInt(newValue)
     } else if(name === "tiles-url") {
       this.tilesURL = newValue
-    } else if(name === "visible-columns") {
-      this.visibleCols = parseInt(newValue)
-    } else if(name === "visible-rows") {
-      this.visibleRows = parseInt(newValue)
+    } else if(name === "tile-zoom") {
+      this.zoom = parseInt(newValue)
     }
   }
 
@@ -249,6 +259,13 @@ class AMaze extends HTMLElement {
       return
     }
 
+    this.visibleCols = Math.ceil(
+      this.container.clientWidth / (this.cellSize * this.zoom)
+    )
+    this.visibleRows = Math.ceil(
+      this.container.clientHeight / (this.cellSize * this.zoom)
+    )
+
     const canvases = [
       this.backgroundCanvas,
       this.decorCanvas,
@@ -260,8 +277,11 @@ class AMaze extends HTMLElement {
 
     // Resize the canvases
     canvases.map(canvas => {
-      canvas.width = this.visibleCols * this.cellSize
-      canvas.height = this.visibleRows * this.cellSize
+      canvas.width = this.container.clientWidth
+      canvas.height = this.container.clientHeight
+      const ctx = canvas.getContext("2d")
+      ctx.scale(this.zoom, this.zoom)
+      ctx.imageSmoothingEnabled = false
     })
 
     this.redrawScreen()
@@ -358,7 +378,7 @@ class AMaze extends HTMLElement {
    * @param {number} col Column in the sprite sheet.
    * @param {number} row Row in the sprite sheet.
    */
-   defineHero(col, row) {
+  defineHero(col, row) {
     this.heroSrcCol = col
     this.heroSrcRow = row
 
@@ -374,13 +394,14 @@ class AMaze extends HTMLElement {
     this.heroCol = col
     this.heroRow = row
 
-    this.topCol = Math.floor(col - this.visibleCols / 2)
-    this.topRow = Math.floor(row - this.visibleRows / 2)
+    this.topCol = Math.floor(col + 1 - this.visibleCols / 2)
+    this.topRow = Math.floor(row + 1 - this.visibleRows / 2)
 
     this.redrawScreen()
 
     // Clear the canvas
     const ctx = this.heroCanvas.getContext('2d')
+
     ctx.clearRect(0, 0, this.heroCanvas.width, this.heroCanvas.height)
 
     // Draw hero

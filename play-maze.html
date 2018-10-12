@@ -3,7 +3,7 @@
     <meta charset="utf8">
 
     <!-- Be nice to mobile browsers -->
-    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=2.0, width=device-width" />
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, width=device-width" />
 
     <!-- Polyfill HTML import for Firefox. Firefox may also need you to 
          enable webcomponents (custom elements and shadow DOM) via about:config
@@ -24,7 +24,7 @@
 
     <div class="board">
       <!-- The board on which is drawn the maze -->
-      <a-maze id="maze" visible-columns="10" visible-rows="10"></a-maze>
+      <a-maze id="maze" tile-zoom="2"></a-maze>
 
       <!-- The joystick handles browser buttons for mobile and keyboard
            keys for desktop -->

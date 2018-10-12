@@ -309,6 +309,7 @@ class MazeEngine {
 
         if(targets.length !== 0) {
             targets.forEach(object => object.visible = true)
+            navigator.vibrate(50)
         }
 
         this.changePosition(object.x, object.y)
@@ -325,6 +326,7 @@ class MazeEngine {
 
         if(targets.length !== 0) {
             targets.forEach(object => object.visible = false)
+            navigator.vibrate([ 100, 30, 100])
         }
 
         this.changePosition(object.x, object.y)

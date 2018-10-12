@@ -14,18 +14,22 @@ h1, h2, h3 {
     font-family: Gothic, serif;
     color: lightgreen;
     font-weight: normal;
+    line-height: 150%;
 }
 
 body {
     font-family: Text, sans-serif;
-    line-height: 150%;
     background-color: black;
-    font-size: 200%;
     color: #DDD;
     padding: 1em;
 }
 
-p, ul { margin: 0.4em 0; }
+p, ul, ol {
+    font-size: 125%;
+    margin: 0.4em 0;
+}
+
+li { margin: 0.5em 0; }
 
 a { color: yellow; }
 
