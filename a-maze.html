@@ -302,27 +302,26 @@ class AMaze extends HTMLElement {
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+    const startx = Math.max(this.topCol, 0)
+    const endx = Math.min(this.topCol + this.visibleCols, tiles[0].length)
+    const starty = Math.max(this.topRow, 0)
+    const endy = Math.min(this.topRow + this.visibleRows, tiles.length)
+
     // Draw elements.
-    tiles.forEach((row, y) => {
-      // Ignore non visible rows
-      if(y < this.topRow || y >= this.topRow + this.visibleRows) {
-        return
+    for(let y = starty; y < endy; y++) {
+      let row = tiles[y]
+
+      for(let x = startx; x < endx; x++) {
+        let coords = row[x]
+
+        if(coords.offset < 0) continue
+
+        this.copySprite(
+          canvas, coords.x,
+          coords.y, x - this.topCol, y - this.topRow
+        )
       }
-
-      row.forEach((coords, x) => {
-        // Ignore non visible columns
-        if(x < this.topCol || x >= this.topCol + this.visibleCols) {
-          return
-        }
-
-        if(coords.offset >= 0) {
-          this.copySprite(
-            canvas, coords.x,
-            coords.y, x - this.topCol, y - this.topRow
-          )
-        }
-      })
-    })
+    }
   }
 
   drawObjects() {
@@ -476,9 +475,7 @@ class AMaze extends HTMLElement {
    * @param {number} dstRow Row in the destination canvas.
    */
   copySprite(canvas, srcCol, srcRow, dstCol, dstRow) {
-    const ctx = canvas.getContext('2d')
-
-    ctx.drawImage(
+    canvas.getContext('2d').drawImage(
       // Source
       this.spriteSheet,
       srcCol * this.cellSize, srcRow * this.cellSize,
