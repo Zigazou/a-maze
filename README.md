@@ -21,7 +21,7 @@ Kenney Vleugels (Kenney.nl).
 Run
 ---
 
-Go to [maze-app.html](maze-app.html)
+Go to [index.html](index.html)
 
 Creating your own maze
 ----------------------
