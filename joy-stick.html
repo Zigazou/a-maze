@@ -57,26 +57,153 @@ class JoyStick extends HTMLElement {
       right: this.root.querySelector("button.right"),
     }
 
-    // Listen to keystrokes.
-    document.addEventListener(
-      "keydown", e => this.fireEvent(JoyStick.keyCodes[e.keyCode])
-    )
+    /**
+     * Repeat interval in milliseconds.
+     * @member {number}
+     * @private
+     */
+    this.repeatInterval = 150
 
-    // Listen to button clicks.
-    for(let item in this.buttons) {
-      this.buttons[item].addEventListener("click", () => this.fireEvent(item))
+    /**
+     * Interval IDs.
+     * @member {Object}
+     * @private
+     */
+     this.repeats = {
+      up: undefined,
+      down: undefined,
+      left: undefined,
+      right: undefined
+    }
+
+    this.initEvents()
+  }
+
+  /**
+   * List of attributes that must fire an attributeChangedCallback when they
+   * are modified by the user.
+   * @return {string[]}
+   */
+  static get observedAttributes() {
+    return ["repeat-interval"]
+  }
+
+  /**
+   * Handles attribute changing.
+   * @param {string} name Name of the attribute being modified.
+   * @param {string} oldValue Old value of the attribute.
+   * @param {string} newValue New value of the attribute.
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+    if(name === "repeat-interval") {
+      this.repeatInterval = parseInt(newValue)
     }
   }
 
   /**
-   * Helper function used to fire joystick-move custom event.
-   * @param {string} value A string to pass in the detail of the event.
+   * Initialize all events.
    * @private
    */
-   fireEvent(value) {
-    if(value !== undefined) {
-      this.dispatchEvent(new CustomEvent('joystick-move', { detail: value }))
+  initEvents() {
+    // Listen to keystrokes.
+    document.addEventListener(
+      "keydown", e => {
+        if(JoyStick.keyCodes[e.keyCode]) {
+          this.startRepeat(JoyStick.keyCodes[e.keyCode])
+          e.preventDefault()
+        }
+      }
+    )
+
+    document.addEventListener(
+      "keyup", e => {
+        if(JoyStick.keyCodes[e.keyCode]) {
+          this.endRepeat(JoyStick.keyCodes[e.keyCode])
+          e.preventDefault()
+        }
+      }
+    )
+
+    // Listen to button clicks.
+    for(let item in this.buttons) {
+      this.buttons[item].addEventListener(
+        "mousedown", e => {
+          this.startRepeat(item)
+          e.preventDefault()
+        }
+      )
+
+      this.buttons[item].addEventListener(
+        "mouseup", e => {
+          this.endRepeat(item)
+          e.preventDefault()
+        }
+      )
+
+      this.buttons[item].addEventListener(
+        "touchstart", e => {
+          this.startRepeat(item)
+          e.preventDefault()
+        }
+      )
+
+      this.buttons[item].addEventListener(
+        "touchend", e => {
+          this.endRepeat(item)
+          e.preventDefault()
+        }
+      )
+
+      this.buttons[item].addEventListener(
+        "touchcancel", e => {
+          this.endRepeat(item)
+          e.preventDefault()
+        }
+      )
     }
+  }
+
+  /**
+   * Start a repeating sequence of joystick movement.
+   * @param {string} code A string indicating the direction ("up", "down",
+   *                      "left" or "right")
+   * @private
+   */
+  startRepeat(code) {
+    if(!(code in this.repeats) || this.repeats[code] !== undefined) {
+      return
+    }
+
+    this.repeatKey(code)
+    this.repeats[code] = window.setInterval(
+      () => this.repeatKey(code),
+      this.repeatInterval
+    )
+  }
+
+  /**
+   * Repeat a joystick movement.
+   * @param {string} code A string indicating the direction ("up", "down",
+   *                      "left" or "right")
+   * @private
+   */
+  repeatKey(code) {
+    this.dispatchEvent(new CustomEvent('joystick-move', { detail: code }))
+  }
+
+  /**
+   * End a repeating sequence of joystick movement.
+   * @param {string} code A string indicating the direction ("up", "down",
+   *                      "left" or "right")
+   * @private
+   */
+  endRepeat(code) {
+    if(!(code in this.repeats) || this.repeats[code] === undefined) {
+      return
+    }
+
+    window.clearInterval(this.repeats[code])
+    this.repeats[code] = undefined
   }
 }
 
