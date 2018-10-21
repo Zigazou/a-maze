@@ -49,22 +49,11 @@
                  "name":"win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"Did you find the light?"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"you found the item"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"You win!"
+                         "value":"win(\"You win!\", \"you found the item\", \"Did you find the light?\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -75,8 +64,12 @@
                  "height":32,
                  "id":44,
                  "name":"revealmap",
+                 "properties": [{
+                    "name":"actions",
+                    "type":"string",
+                    "value":"showmap();"
+                 }],
                  "rotation":0,
-                 "type":"showmap",
                  "visible":false,
                  "width":32,
                  "x":480,
@@ -89,12 +82,11 @@
                  "name":"reveal",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":44
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(44);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":448,

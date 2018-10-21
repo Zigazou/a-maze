@@ -49,22 +49,11 @@
                  "name":"win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"Teleports take you to another location in the maze."
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"You found what to do"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"Congratulations!"
+                         "value":"win(\"Congratulations!\", \"You found what to do\", \"Teleports take you to another location in the maze.\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":32,
@@ -77,12 +66,11 @@
                  "name":"teleportB",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":29
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(29);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -95,12 +83,11 @@
                  "name":"teleportA",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":28
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(28);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":96,

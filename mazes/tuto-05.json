@@ -49,22 +49,11 @@
                  "name":"win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"You can increase your attack and defense with some items."
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"You found what to do"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"Congratulations!"
+                         "value":"win(\"Congratulations!\", \"You found what to do\", \"You can increase your attack and defense with some items.\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":32,
@@ -77,12 +66,11 @@
                  "name":"teleportB",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":29
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(29);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -95,12 +83,11 @@
                  "name":"teleportA",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":28
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(28);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -113,12 +100,11 @@
                  "name":"shield",
                  "properties":[
                         {
-                         "name":"defense",
-                         "type":"int",
-                         "value":10
+                         "name":"actions",
+                         "type":"string",
+                         "value":"protection(10);"
                         }],
                  "rotation":0,
-                 "type":"protection",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -131,12 +117,11 @@
                  "name":"sword",
                  "properties":[
                         {
-                         "name":"attack",
-                         "type":"int",
-                         "value":10
+                         "name":"actions",
+                         "type":"string",
+                         "value":"weapon(10);"
                         }],
                  "rotation":0,
-                 "type":"weapon",
                  "visible":true,
                  "width":32,
                  "x":64,

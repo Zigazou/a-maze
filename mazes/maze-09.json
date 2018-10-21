@@ -85,12 +85,11 @@
                  "name":"Lock door1",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"66,67,68"
+                         "value":"show(66,67,68);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":352,
@@ -103,12 +102,11 @@
                  "name":"Lock door2",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"66,67,68"
+                         "value":"show(66,67,68);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":384,
@@ -121,12 +119,11 @@
                  "name":"Lock door3",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"66,67,68"
+                         "value":"show(66,67,68);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":416,
@@ -139,12 +136,11 @@
                  "name":"To the castle",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":77
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(77);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -157,12 +153,11 @@
                  "name":"Welcome to the castle",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":77
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(77);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":384,
@@ -173,39 +168,12 @@
                  "height":32,
                  "id":69,
                  "name":"Monster6",
-                 "properties":[
-                        {
-                         "name":"answer",
-                         "type":"string",
-                         "value":"0"
-                        }, 
-                        {
-                         "name":"choice0",
-                         "type":"string",
-                         "value":"Christopher Lloyd"
-                        }, 
-                        {
-                         "name":"choice1",
-                         "type":"string",
-                         "value":"Marty Mc Fly"
-                        }, 
-                        {
-                         "name":"choice2",
-                         "type":"string",
-                         "value":"Harold Lloyd"
-                        }, 
-                        {
-                         "name":"choice3",
-                         "type":"string",
-                         "value":"Mike Myers"
-                        }, 
-                        {
+                 "properties":[{
                          "name":"question",
                          "type":"string",
-                         "value":"Which actor played the fictional character Dr. Emmett Brown in the Back to the Future trilogy?"
+                         "value":"question(\"Which actor played the fictional character Dr. Emmett Brown in the Back to the Future trilogy?\", \"Christopher Lloyd\", \"Marty Mc Fly\", \"Harold Lloyd\", \"Mike Myers\", \"0\");"
                         }],
                  "rotation":0,
-                 "type":"question",
                  "visible":true,
                  "width":32,
                  "x":672,
@@ -216,39 +184,12 @@
                  "height":32,
                  "id":83,
                  "name":"Monster5",
-                 "properties":[
-                        {
-                         "name":"answer",
+                 "properties":[{
+                         "name":"actions",
                          "type":"string",
-                         "value":"3"
-                        }, 
-                        {
-                         "name":"choice0",
-                         "type":"string",
-                         "value":"4"
-                        }, 
-                        {
-                         "name":"choice1",
-                         "type":"string",
-                         "value":"2"
-                        }, 
-                        {
-                         "name":"choice2",
-                         "type":"string",
-                         "value":"21"
-                        }, 
-                        {
-                         "name":"choice3",
-                         "type":"string",
-                         "value":"14"
-                        }, 
-                        {
-                         "name":"question",
-                         "type":"string",
-                         "value":"A fortnight is a unit of time equal to how many days?"
+                         "value":"question(\"A fortnight is a unit of time equal to how many days?\", \"4\", \"2\", \"21\", \"14\", \"3\");"
                         }],
                  "rotation":0,
-                 "type":"question",
                  "visible":true,
                  "width":32,
                  "x":608,
@@ -259,39 +200,12 @@
                  "height":32,
                  "id":82,
                  "name":"Monster4",
-                 "properties":[
-                        {
-                         "name":"answer",
+                 "properties":[{
+                         "name":"actions",
                          "type":"string",
-                         "value":"1"
-                        }, 
-                        {
-                         "name":"choice0",
-                         "type":"string",
-                         "value":"Abracadabra"
-                        }, 
-                        {
-                         "name":"choice1",
-                         "type":"string",
-                         "value":"Shazam"
-                        }, 
-                        {
-                         "name":"choice2",
-                         "type":"string",
-                         "value":"Alakhazam"
-                        }, 
-                        {
-                         "name":"choice3",
-                         "type":"string",
-                         "value":"Shifumi"
-                        }, 
-                        {
-                         "name":"question",
-                         "type":"string",
-                         "value":"What magic word in comic books invokes Solomon, Hercules, Atlas, Zeus, Achilles and Mercury?"
+                         "value":"question(\"What magic word in comic books invokes Solomon, Hercules, Atlas, Zeus, Achilles and Mercury?\", \"Abracadabra\", \"Shazam\", \"Alakhazam\", \"Shifumi\", \"1\",);"
                         }],
                  "rotation":0,
-                 "type":"question",
                  "visible":true,
                  "width":32,
                  "x":480,
@@ -302,39 +216,12 @@
                  "height":32,
                  "id":81,
                  "name":"Monster3",
-                 "properties":[
-                        {
-                         "name":"answer",
+                 "properties":[{
+                         "name":"actions",
                          "type":"string",
-                         "value":"2"
-                        }, 
-                        {
-                         "name":"choice0",
-                         "type":"string",
-                         "value":"Jimmy Carter"
-                        }, 
-                        {
-                         "name":"choice1",
-                         "type":"string",
-                         "value":"Richard Nixon"
-                        }, 
-                        {
-                         "name":"choice2",
-                         "type":"string",
-                         "value":"John F. Kennedy"
-                        }, 
-                        {
-                         "name":"choice3",
-                         "type":"string",
-                         "value":"Barack Obama"
-                        }, 
-                        {
-                         "name":"question",
-                         "type":"string",
-                         "value":"What future US president was stranded on a desert island as a 26-year-old navy lieutenant in 1943?"
+                         "value":"question(\"What future US president was stranded on a desert island as a 26-year-old navy lieutenant in 1943?\", \"Jimmy Carter\", \"Richard Nixon\", \"John F. Kennedy\", \"Barack Obama\", \"2\");"
                         }],
                  "rotation":0,
-                 "type":"question",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -345,39 +232,12 @@
                  "height":32,
                  "id":80,
                  "name":"Monster2",
-                 "properties":[
-                        {
-                         "name":"answer",
+                 "properties":[{
+                         "name":"actions",
                          "type":"string",
-                         "value":"0"
-                        }, 
-                        {
-                         "name":"choice0",
-                         "type":"string",
-                         "value":"2"
-                        }, 
-                        {
-                         "name":"choice1",
-                         "type":"string",
-                         "value":"3"
-                        }, 
-                        {
-                         "name":"choice2",
-                         "type":"string",
-                         "value":"4"
-                        }, 
-                        {
-                         "name":"choice3",
-                         "type":"string",
-                         "value":"5"
-                        }, 
-                        {
-                         "name":"question",
-                         "type":"string",
-                         "value":"How many members were in the American rock band The White Stripes?"
+                         "value":"question(\"How many members were in the American rock band The White Stripes?\", \"2\", \"3\", \"4\", \"5\", \"0\");"
                         }],
                  "rotation":0,
-                 "type":"question",
                  "visible":true,
                  "width":32,
                  "x":160,
@@ -388,39 +248,12 @@
                  "height":32,
                  "id":70,
                  "name":"Monster1",
-                 "properties":[
-                        {
-                         "name":"answer",
+                 "properties":[{
+                         "name":"actions",
                          "type":"string",
-                         "value":"0"
-                        }, 
-                        {
-                         "name":"choice0",
-                         "type":"string",
-                         "value":"Apple"
-                        }, 
-                        {
-                         "name":"choice1",
-                         "type":"string",
-                         "value":"Microsoft"
-                        }, 
-                        {
-                         "name":"choice2",
-                         "type":"string",
-                         "value":"Google"
-                        }, 
-                        {
-                         "name":"choice3",
-                         "type":"string",
-                         "value":"IBM"
-                        }, 
-                        {
-                         "name":"question",
-                         "type":"string",
-                         "value":"What was the first publicly traded US company to reach a $1 trillion market cap?"
+                         "value":"question(\"What was the first publicly traded US company to reach a $1 trillion market cap?\", \"Apple\", \"Microsoft\", \"Google\", \"IBM\", \"0\");"
                         }],
                  "rotation":0,
-                 "type":"question",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -433,22 +266,11 @@
                  "name":"Win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"Hope you enjoyed it!"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"You found the item."
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"You win!"
+                         "value":"win(\"You win!\", \"You found the item.\", \"Hope you enjoyed it!\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":false,
                  "width":32,
                  "x":384,
@@ -473,12 +295,11 @@
                  "name":"Goto last destination",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":94
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(94);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":704,
@@ -503,12 +324,11 @@
                  "name":"Goto B",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":96
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(96);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":32,
@@ -533,12 +353,11 @@
                  "name":"Goto A",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":95
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(95);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":160,
@@ -563,12 +382,11 @@
                  "name":"Goto C",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":97
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(97);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":128,
@@ -593,12 +411,11 @@
                  "name":"Goto D",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":99
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(99);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":320,
@@ -623,12 +440,11 @@
                  "name":"Goto E",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":100
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(100);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":384,
@@ -641,12 +457,11 @@
                  "name":"Goto F",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":101
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(101);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":576,
@@ -671,12 +486,11 @@
                  "name":"Reveal treasure",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"93"
+                         "value":"show(93);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":672,
@@ -689,12 +503,11 @@
                  "name":"Reveal help",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"106"
+                         "value":"show(106)"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":672,
@@ -707,22 +520,11 @@
                  "name":"Help",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"It could be the reason why you're stuck here."
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"You might appreciate to explore the E"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"Need some help?"
+                         "value":"secret(\"Need some help?\", \"You might appreciate to explore the E\", \"It could be the reason why you're stuck here.\");"
                         }],
                  "rotation":0,
-                 "type":"secret",
                  "visible":false,
                  "width":32,
                  "x":96,

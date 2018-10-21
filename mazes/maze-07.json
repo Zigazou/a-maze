@@ -49,22 +49,11 @@
                  "name":"win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"You did it!"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"you found the item"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"You win!"
+                         "value":"win(\"You win!\", \"you found the item\", \"You did it!\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":288,

@@ -49,22 +49,11 @@
                  "name":"win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"Go to the next level!"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"you found the item"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"You win!"
+                         "value":"win(\"You win!\", \"you found the item\", \"Go to the next level!\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -77,37 +66,11 @@
                  "name":"angel",
                  "properties":[
                         {
-                         "name":"answer",
+                         "name":"actions",
                          "type":"string",
-                         "value":"1"
-                        }, 
-                        {
-                         "name":"choice0",
-                         "type":"string",
-                         "value":"beer"
-                        }, 
-                        {
-                         "name":"choice1",
-                         "type":"string",
-                         "value":"bread"
-                        }, 
-                        {
-                         "name":"choice2",
-                         "type":"string",
-                         "value":"cheese"
-                        }, 
-                        {
-                         "name":"choice3",
-                         "type":"string",
-                         "value":"computer"
-                        }, 
-                        {
-                         "name":"question",
-                         "type":"string",
-                         "value":"Naan is the Persian word for what?"
+                         "value":"question(\"Naan is the Persian word for what?\", \"beer\", \"bread\", \"cheese\", \"computer\", \"1\");"
                         }],
                  "rotation":0,
-                 "type":"question",
                  "visible":true,
                  "width":32,
                  "x":288,

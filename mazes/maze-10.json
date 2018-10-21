@@ -49,22 +49,11 @@
                  "name":"Win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"Hope you enjoyed it!"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"You found the item."
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"You win!"
+                         "value":"win(\"You win!\", \"You found the item.\", \"Hope you enjoyed it!\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":768,
@@ -77,22 +66,11 @@
                  "name":"Help",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"It could be the reason why you're stuck here."
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"You might appreciate to explore the E"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"Need some help?"
+                         "value":"secret(\"Need some help?\", \"You might appreciate to explore the E\", \"It could be the reason why you're stuck here.\");"
                         }],
                  "rotation":0,
-                 "type":"secret",
                  "visible":false,
                  "width":32,
                  "x":512,
@@ -153,12 +131,11 @@
                  "name":"Lock main door 1",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"107,108,109,110"
+                         "value":"show(107,108,109,110);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":1312,
@@ -171,12 +148,11 @@
                  "name":"Lock main door 2",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"107,108,109,110"
+                         "value":"show(107,108,109,110);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":1344,
@@ -189,12 +165,11 @@
                  "name":"Lock main door 3",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"107,108,109,110"
+                         "value":"show(107,108,109,110);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":1376,
@@ -207,12 +182,11 @@
                  "name":"Lock main door 4",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"107,108,109,110"
+                         "value":"show(107,108,109,110);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":1408,
@@ -225,12 +199,11 @@
                  "name":"Stair A",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":116
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(116);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":416,
@@ -243,12 +216,11 @@
                  "name":"Stair B",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":115
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(115);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":672,
@@ -261,12 +233,11 @@
                  "name":"Apple 1",
                  "properties":[
                         {
-                         "name":"health",
-                         "type":"int",
-                         "value":20
+                         "name":"actions",
+                         "type":"string",
+                         "value":"edible(20);"
                         }],
                  "rotation":0,
-                 "type":"edible",
                  "visible":true,
                  "width":32,
                  "x":1280,
@@ -279,12 +250,11 @@
                  "name":"Pear 1",
                  "properties":[
                         {
-                         "name":"health",
-                         "type":"int",
-                         "value":20
+                         "name":"actions",
+                         "type":"string",
+                         "value":"edible(20);"
                         }],
                  "rotation":0,
-                 "type":"edible",
                  "visible":true,
                  "width":32,
                  "x":1280,
@@ -297,22 +267,11 @@
                  "name":"I'm lost",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"I'm sorry! It was a long path and you gain nothing!"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"Did you find a way out?"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"I'm lost!"
+                         "value":"secret(\"I'm lost!\", \"Did you find a way out?\", \"I'm sorry! It was a long path and you gain nothing!\");"
                         }],
                  "rotation":0,
-                 "type":"secret",
                  "visible":true,
                  "width":32,
                  "x":480,
@@ -325,22 +284,11 @@
                  "name":"It's pretty dark",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"Everything would be easier."
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"If only there was light..."
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"It's pretty dark!"
+                         "value":"secret(\"It's pretty dark!\", \"If only there was light...\", \"Everything would be easier.\");"
                         }],
                  "rotation":0,
-                 "type":"secret",
                  "visible":true,
                  "width":32,
                  "x":1376,
@@ -351,8 +299,13 @@
                  "height":32,
                  "id":122,
                  "name":"Let there be light",
+                 "properties":[
+                        {
+                         "name":"actions",
+                         "type":"string",
+                         "value":"showmap();"
+                        }],
                  "rotation":0,
-                 "type":"showmap",
                  "visible":true,
                  "width":32,
                  "x":1280,
@@ -365,12 +318,11 @@
                  "name":"Apple 2",
                  "properties":[
                         {
-                         "name":"health",
-                         "type":"int",
-                         "value":20
+                         "name":"actions",
+                         "type":"string",
+                         "value":"edible(20);"
                         }],
                  "rotation":0,
-                 "type":"edible",
                  "visible":true,
                  "width":32,
                  "x":1056,
@@ -383,12 +335,11 @@
                  "name":"Pear 2",
                  "properties":[
                         {
-                         "name":"health",
-                         "type":"int",
-                         "value":20
+                         "name":"actions",
+                         "type":"string",
+                         "value":"edible(20);"
                         }],
                  "rotation":0,
-                 "type":"edible",
                  "visible":true,
                  "width":32,
                  "x":1184,
@@ -401,12 +352,11 @@
                  "name":"Banana 1",
                  "properties":[
                         {
-                         "name":"health",
-                         "type":"int",
-                         "value":25
+                         "name":"actions",
+                         "type":"string",
+                         "value":"edible(25);"
                         }],
                  "rotation":0,
-                 "type":"edible",
                  "visible":true,
                  "width":32,
                  "x":992,
@@ -419,12 +369,11 @@
                  "name":"Apricot 1",
                  "properties":[
                         {
-                         "name":"health",
-                         "type":"int",
-                         "value":15
+                         "name":"actions",
+                         "type":"string",
+                         "value":"edible(15);"
                         }],
                  "rotation":0,
-                 "type":"edible",
                  "visible":true,
                  "width":32,
                  "x":1216,
@@ -437,12 +386,11 @@
                  "name":"Open the A",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"129"
+                         "value":"hide(129);"
                         }],
                  "rotation":0,
-                 "type":"hide",
                  "visible":true,
                  "width":32,
                  "x":736,

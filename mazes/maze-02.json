@@ -49,12 +49,11 @@
                  "name":"R6",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":7
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(7);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":384,
@@ -67,22 +66,11 @@
                  "name":"win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"Go to the next level!"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"you found the item"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"You win!"
+                         "value":"win(\"You win!\", \"you found the item\", \"Go to the next level!\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -95,12 +83,11 @@
                  "name":"R4",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":37
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(37);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":544,
@@ -113,12 +100,11 @@
                  "name":"R3",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":36
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(36);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":544,
@@ -131,12 +117,11 @@
                  "name":"R2",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":34
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(34);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":544,
@@ -149,12 +134,11 @@
                  "name":"R1",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":30
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(30);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":544,
@@ -167,12 +151,11 @@
                  "name":"R0",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":32
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(32);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":544,
@@ -185,12 +168,11 @@
                  "name":"L1",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":37
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(37);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -203,12 +185,11 @@
                  "name":"L2",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":30
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(30);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -221,12 +202,11 @@
                  "name":"L3",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":35
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(35);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -239,12 +219,11 @@
                  "name":"L4",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":39
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(39);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -257,12 +236,11 @@
                  "name":"L5",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":41
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(41);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -275,12 +253,11 @@
                  "name":"L6",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":6
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(6);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -293,12 +270,11 @@
                  "name":"L0",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":33
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(33);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -311,12 +287,11 @@
                  "name":"R5",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":39
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(39);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":544,

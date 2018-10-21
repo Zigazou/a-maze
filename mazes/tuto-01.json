@@ -49,22 +49,11 @@
                  "name":"win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"Each level has an item you need to collect to win."
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"You found what to do"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"Congratulations!"
+                         "value":"win(\"Congratulations!\", \"You found what to do\", \"Each level has an item you need to collect to win.\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":32,

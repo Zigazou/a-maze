@@ -211,10 +211,14 @@ class MazeEngine {
 
             if(object && object.visible) {
                 // An object exists and is visible in the targeted cell.
-                const callbackName = "handleObject" + object.type
+                object.actions.forEach(action => {
+                    const callbackName = "handleObject" + action.type
 
-                // Look for a callback corresponding to the object type.
-                if(callbackName in this) this[callbackName](object)
+                    // Look for a callback corresponding to the object type.
+                    if(callbackName in this) this[callbackName](
+                        object, action.parameters
+                    )
+                })
             } else {
                 // Just change the hero position.
                 this.changePosition(nx, ny)
@@ -263,7 +267,7 @@ class MazeEngine {
      * @param {Object} object The edible object.
      * @private
      */
-    handleObjectedible(object) {
+    handleObjectedible(object, parameters) {
         this.showingMessage = true
         this.message.showMessage(
             "You eat some…",
@@ -271,7 +275,7 @@ class MazeEngine {
             "Your health increases"
         ).then(() => {
             this.deleteObject(object)
-            this.hero.health += object.properties.health.value
+            this.hero.health += parameters[0]
             this.score.setScore("health", this.hero.health)
             this.changePosition(object.x, object.y)
             this.showingMessage = false
@@ -283,7 +287,7 @@ class MazeEngine {
      * @param {Object} object The inedible object.
      * @private
      */
-    handleObjectinedible(object) {
+    handleObjectinedible(object, parameters) {
         this.showingMessage = true
         this.message.showMessage(
             "You eat some…",
@@ -291,7 +295,7 @@ class MazeEngine {
             "Your health decreases"
         ).then(() => {
             this.deleteObject(object)
-            this.hero.health -= object.properties.health.value
+            this.hero.health -= parameters[0]
             this.score.setScore("health", this.hero.health)
             this.changePosition(object.x, object.y)
             this.showingMessage = false
@@ -303,9 +307,8 @@ class MazeEngine {
      * @param {Object} object The show object.
      * @private
      */
-    handleObjectshow(object) {
-        const objectIDs = MazeEngine.toList(object.properties.object.value)
-        const targets = this.objects.filter(o => objectIDs.indexOf(o.id) >= 0)
+    handleObjectshow(object, parameters) {
+        const targets = this.objects.filter(o => parameters.indexOf(o.id) >= 0)
 
         if(targets.length !== 0) {
             targets.forEach(object => object.visible = true)
@@ -320,9 +323,8 @@ class MazeEngine {
      * @param {Object} object The hide object.
      * @private
      */
-    handleObjecthide(object) {
-        const objectIDs = MazeEngine.toList(object.properties.object.value)
-        const targets = this.objects.filter(o => objectIDs.indexOf(o.id) >= 0)
+    handleObjecthide(object, parameters) {
+        const targets = this.objects.filter(o => parameters.indexOf(o.id) >= 0)
 
         if(targets.length !== 0) {
             targets.forEach(object => object.visible = false)
@@ -337,7 +339,7 @@ class MazeEngine {
      * @param {Object} object The showmap object.
      * @private
      */
-    handleObjectshowmap(object) {
+    handleObjectshowmap(object, parameters) {
         this.maze.revealMap()
         this.changePosition(object.x, object.y)
     }
@@ -347,7 +349,7 @@ class MazeEngine {
      * @param {Object} object The hidemap object.
      * @private
      */
-    handleObjecthidemap(object) {
+    handleObjecthidemap(object, parameters) {
         this.maze.hideMap()
         this.changePosition(object.x, object.y)
     }
@@ -357,14 +359,14 @@ class MazeEngine {
      * @param {Object} object The weapon object.
      * @private
      */
-    handleObjectweapon(object) {
+    handleObjectweapon(object, parameters) {
         this.showingMessage = true
         this.message.showMessage(
             "You found…",
             object.name,
             "Your attack increases"
         ).then(() => {
-            this.hero.attack += object.properties.attack.value
+            this.hero.attack += parameters[0]
             this.score.setScore("attack", this.hero.attack)
             this.deleteObject(object)
             this.changePosition(object.x, object.y)
@@ -377,12 +379,12 @@ class MazeEngine {
      * @param {Object} object The secret object.
      * @private
      */
-    handleObjectsecret(object) {
+    handleObjectsecret(object, parameters) {
         this.showingMessage = true
         this.message.showMessage(
-            object.properties.title.value,
-            object.properties.subject.value,
-            object.properties.description.value
+            parameters[0],
+            parameters[1],
+            parameters[2]
         ).then(() => {
             this.deleteObject(object)
             this.changePosition(object.x, object.y)
@@ -395,14 +397,14 @@ class MazeEngine {
      * @param {Object} object The protection object.
      * @private
      */
-    handleObjectprotection(object) {
+    handleObjectprotection(object, parameters) {
         this.showingMessage = true
         this.message.showMessage(
             "You found…",
             object.name,
             "Your defense increases"
         ).then(() => {
-            this.hero.defense += object.properties.defense.value
+            this.hero.defense += parameters[0]
             this.score.setScore("defense", this.hero.defense)
             this.deleteObject(object)
             this.changePosition(object.x, object.y)
@@ -415,14 +417,14 @@ class MazeEngine {
      * @param {Object} object The treasure object.
      * @private
      */
-    handleObjecttreasure(object) {
+    handleObjecttreasure(object, parameters) {
         this.showingMessage = true
         this.message.showMessage(
             "You found…",
             object.name,
             "You are richer"
         ).then(() => {
-            this.hero.treasure += object.properties.fortune.value
+            this.hero.treasure += parameters[0]
             this.score.setScore("wealth", this.hero.treasure)
             this.deleteObject(object)
             this.changePosition(object.x, object.y)
@@ -435,10 +437,8 @@ class MazeEngine {
      * @param {Object} object The teleport object.
      * @private
      */
-    handleObjectteleport(object) {
-        const destination = this.objects.find(
-            o => o.id === object.properties.destination.value
-        )
+    handleObjectteleport(object, parameters) {
+        const destination = this.objects.find(o => o.id === parameters[0])
 
         this.changePosition(destination.x, destination.y)
     }
@@ -448,11 +448,11 @@ class MazeEngine {
      * @param {Object} object The win object.
      * @private
      */
-    handleObjectwin(object) {
+    handleObjectwin(object, parameters) {
         this.message.showMessage(
-            object.properties.title.value,
-            object.properties.subject.value,
-            object.properties.description.value
+            parameters[0],
+            parameters[1],
+            parameters[2]
         ).then(() => this.endGame())
     }
 
@@ -461,22 +461,17 @@ class MazeEngine {
      * @param {Object} object The question object.
      * @private
      */
-    handleObjectquestion(object) {
+    handleObjectquestion(object, parameters) {
         let success = false
 
         this.showingMessage = true
 
         this.message.showQuestion(
             "A right answer open the way",
-            object.properties.question.value,
-            [
-                object.properties.choice0.value,
-                object.properties.choice1.value,
-                object.properties.choice2.value,
-                object.properties.choice3.value
-            ]
+            parameters[0],
+            parameters.slice(1, 5)
         ).then(answer => {
-            if(answer === object.properties.answer.value) {
+            if(answer === parameters[5]) {
                 success = true
                 return this.message.showMessage(
                     "You have given...",
@@ -502,16 +497,6 @@ class MazeEngine {
 }
 
 /**
- * Converts a string containing a list in the format "number,number,number" to
- * an actual list of numbers.
- * @param {string} value The string to convert.
- * @returns {number[]}
- */
-MazeEngine.toList = function(value) {
-    return value.toString().split(',').map(a => parseInt(a))
-}
-
-/**
  * Converts object objects from the Tiled application.
  * @param {Object[]} objects List of objects to convert.
  * @param {number} sheetWidth Tile sheet width in number of tiles.
@@ -527,13 +512,14 @@ MazeEngine.convertObjects = function(objects, sheetWidth) {
         object.x = object.x / object.width
         object.y = object.y / object.height - 1
 
-        // Custom properties generated by Tiled are not indexed by their
-        // name. This creates this index which makes it easier later to
-        // fetch specific properties.
+        // Search for the actions property.
         if(object.properties) {
-            object.properties.forEach(
-                property => object.properties[property.name] = property
-            )
+            object.properties.forEach(property => {
+                if(property.name === "actions") {
+                    const compiler = new ActionCompiler()
+                    object.actions = compiler.compile(property.value)
+                }
+            })
         }
 
         return object

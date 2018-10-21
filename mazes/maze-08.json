@@ -49,22 +49,11 @@
                  "name":"win",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"You did it!"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"you found the item"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"You win!"
+                         "value":"win(\"You win!\", \"you found the item\", \"You did it!\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":false,
                  "width":32,
                  "x":288,
@@ -77,12 +66,11 @@
                  "name":"1",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":72
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(72);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -95,12 +83,11 @@
                  "name":"9",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":73
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(73);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":false,
                  "width":32,
                  "x":480,
@@ -113,12 +100,11 @@
                  "name":"8",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":74
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(74);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":false,
                  "width":32,
                  "x":288,
@@ -131,12 +117,11 @@
                  "name":"4",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":25
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(25);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":false,
                  "width":32,
                  "x":96,
@@ -149,12 +134,11 @@
                  "name":"2",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"72,73,74,25"
+                         "value":"hide(72,73,74,25);"
                         }],
                  "rotation":0,
-                 "type":"hide",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -167,12 +151,11 @@
                  "name":"3",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"72,73,74,25"
+                         "value":"hide(72,73,74,25);"
                         }],
                  "rotation":0,
-                 "type":"hide",
                  "visible":true,
                  "width":32,
                  "x":480,
@@ -185,12 +168,11 @@
                  "name":"5",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"72,73,74,25"
+                         "value":"hide(72,73,74,25)"
                         }],
                  "rotation":0,
-                 "type":"hide",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -203,12 +185,11 @@
                  "name":"6",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"72,73,74,25"
+                         "value":"hide(72,73,74,25);"
                         }],
                  "rotation":0,
-                 "type":"hide",
                  "visible":true,
                  "width":32,
                  "x":480,
@@ -221,12 +202,11 @@
                  "name":"7",
                  "properties":[
                         {
-                         "name":"object",
+                         "name":"actions",
                          "type":"string",
-                         "value":"72,73,74,25"
+                         "value":"hide(72,73,74,25);"
                         }],
                  "rotation":0,
-                 "type":"hide",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -239,22 +219,11 @@
                  "name":"tip",
                  "properties":[
                         {
-                         "name":"description",
+                         "name":"actions",
                          "type":"string",
-                         "value":"(ad, music and litterature)"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"Apple and Eurythmics know its author."
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"Need some help?"
+                         "value":"secret(\"Need some help?\", \"Apple and Eurythmics know its author.\", \"(ad, music and litterature)\");"
                         }],
                  "rotation":0,
-                 "type":"secret",
                  "visible":true,
                  "width":32,
                  "x":32,

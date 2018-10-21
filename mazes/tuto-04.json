@@ -51,20 +51,9 @@
                         {
                          "name":"description",
                          "type":"string",
-                         "value":"Food is not always good for your health..."
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"You found what to do"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"Congratulations!"
+                         "value":"win(\"Congratulations!\", \"You found what to do\", \"Food is not always good for your health...\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":32,
@@ -77,12 +66,11 @@
                  "name":"teleportB",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":29
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(29);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -95,12 +83,11 @@
                  "name":"teleportA",
                  "properties":[
                         {
-                         "name":"destination",
-                         "type":"int",
-                         "value":28
+                         "name":"actions",
+                         "type":"string",
+                         "value":"teleport(28);"
                         }],
                  "rotation":0,
-                 "type":"teleport",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -113,12 +100,11 @@
                  "name":"pie",
                  "properties":[
                         {
-                         "name":"health",
-                         "type":"int",
-                         "value":20
+                         "name":"action",
+                         "type":"string",
+                         "value":"edible(20);"
                         }],
                  "rotation":0,
-                 "type":"edible",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -131,12 +117,11 @@
                  "name":"rotten meat",
                  "properties":[
                         {
-                         "name":"health",
-                         "type":"int",
-                         "value":10
+                         "name":"actions",
+                         "type":"string",
+                         "value":"inedible(10);"
                         }],
                  "rotation":0,
-                 "type":"inedible",
                  "visible":true,
                  "width":32,
                  "x":64,

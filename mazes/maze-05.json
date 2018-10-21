@@ -51,20 +51,9 @@
                         {
                          "name":"description",
                          "type":"string",
-                         "value":"The creator can sometimes be nasty"
-                        }, 
-                        {
-                         "name":"subject",
-                         "type":"string",
-                         "value":"you found the item"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"You win!"
+                         "value":"win(\"You win!\", \"you found the item\", \"The creator can sometimes be nasty\");"
                         }],
                  "rotation":0,
-                 "type":"win",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -77,12 +66,11 @@
                  "name":"open the door",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"hide(47);"
                         }],
                  "rotation":0,
-                 "type":"hide",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -107,12 +95,11 @@
                  "name":"close the door 12",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -125,12 +112,11 @@
                  "name":"close the door 11",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":160,
@@ -143,12 +129,11 @@
                  "name":"close the door 10",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -161,12 +146,11 @@
                  "name":"close the door 9",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":192,
@@ -179,12 +163,11 @@
                  "name":"close the door 8",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":384,
@@ -197,12 +180,11 @@
                  "name":"close the door 7",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":416,
@@ -215,12 +197,11 @@
                  "name":"close the door 6",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":416,
@@ -233,12 +214,11 @@
                  "name":"close the door 5",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":512,
@@ -251,12 +231,11 @@
                  "name":"close the door 4",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":512,
@@ -269,12 +248,11 @@
                  "name":"close the door 3",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":320,
@@ -287,12 +265,11 @@
                  "name":"close the door 2",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":64,
@@ -305,12 +282,11 @@
                  "name":"close the door 1",
                  "properties":[
                         {
-                         "name":"object",
-                         "type":"int",
-                         "value":47
+                         "name":"actions",
+                         "type":"string",
+                         "value":"show(47);"
                         }],
                  "rotation":0,
-                 "type":"show",
                  "visible":true,
                  "width":32,
                  "x":160,
