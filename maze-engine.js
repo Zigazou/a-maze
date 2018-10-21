@@ -150,6 +150,7 @@ class MazeEngine {
 
         this.walls = layers.walls
         this.objects = layers.objects
+        this.background = layers.background
 
         this.maze.loadGrid(
             layers.background,
@@ -213,23 +214,26 @@ class MazeEngine {
         const ny = directions[dir] ? this.hero.y + directions[dir].y : y
 
         // The hero can not go through walls.
-        if(this.walls[ny][nx].offset < 0) {
-            const object = this.objectAt(nx, ny)
+        if(this.walls[ny][nx].offset >= 0) return
 
-            if(object && object.visible) {
-                // An object exists and is visible in the targeted cell.
-                object.actions.forEach(action => {
-                    const callbackName = "handleObject" + action.type
+        // The hero instantly dies if there's no ground.
+        if(this.background[ny][nx].offset < 0) return this.unfortunateMove()
 
-                    // Look for a callback corresponding to the object type.
-                    if(callbackName in this) this[callbackName](
-                        object, action.parameters
-                    )
-                })
-            } else {
-                // Just change the hero position.
-                this.changePosition(nx, ny)
-            }
+        const object = this.objectAt(nx, ny)
+
+        if(object && object.visible) {
+            // An object exists and is visible in the targeted cell.
+            object.actions.forEach(action => {
+                const callbackName = "handleObject" + action.type
+
+                // Look for a callback corresponding to the object type.
+                if(callbackName in this) this[callbackName](
+                    object, action.parameters
+                )
+            })
+        } else {
+            // Just change the hero position.
+            this.changePosition(nx, ny)
         }
     }
 
@@ -267,6 +271,24 @@ class MazeEngine {
      */
     objectAt(x, y) {
         return this.objects.find(object => object.x === x && object.y === y)
+    }
+
+    /**
+     * Called when player walks where there is no ground. Instantly kills the
+     * player.
+     * @private
+     */
+    unfortunateMove() {
+        this.audioBank.play("random1.mp3")
+        this.showingMessage = true
+        this.message.showMessage(
+            "You died",
+            "You walked where you should not have!",
+            "Next time, mind your steps."
+        ).then(() => {
+            this.showingMessage = false
+            document.location.reload()
+        })
     }
 
     /**
