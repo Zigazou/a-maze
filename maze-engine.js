@@ -84,6 +84,13 @@ class MazeEngine {
         this.showingMessage = false
 
         /**
+         * The audio bank of the game.
+         * @member {AudioBank}
+         * @private
+         */
+        this.audioBank = new AudioBank("sound")
+
+        /**
          * The promise that will be resolved when the game ends.
          * @member {Promise}
          * @private
@@ -493,6 +500,15 @@ class MazeEngine {
 
             this.showingMessage = false
         })
+    }
+
+    /**
+     * Handles sound action.
+     * @param {Object} object The object.
+     * @private
+     */
+    handleObjectsound(object, parameters) {
+        this.audioBank.play(parameters[0])
     }
 }
 

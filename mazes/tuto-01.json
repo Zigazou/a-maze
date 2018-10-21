@@ -51,9 +51,10 @@
                         {
                          "name":"actions",
                          "type":"string",
-                         "value":"win(\"Congratulations!\", \"You found what to do\", \"Each level has an item you need to collect to win.\");"
+                         "value":"sound(\"metal-ringing.mp3\");\nwin(\"Congratulations!\", \"You found what to do\", \"Each level has an item you need to collect to win.\");"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":32,

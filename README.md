@@ -63,7 +63,17 @@ using the `ctrl` key while placing the object.
 They **must have** a name. This name may use spaces and may be displayed when
 messages pop up.
 
-Here are the **object types** understood by the game engine:
+Each object may have an **actions** custom property.
+
+The **actions** custom property is a list of actions to execute when the object
+is hit by the hero.
+
+The **actions** custom property looks like this:
+
+    sound("metal-clinging.mp3");
+    win("Congratulations", "You win!", "Go to the next level!");
+
+Here are the actions understood by the game engine:
 
 - `question`: generally represented by a guardian. If the player gives the
   right answer, the guardian disappears.
@@ -78,80 +88,79 @@ Here are the **object types** understood by the game engine:
 - `hide`: make another object invisible.
 - `showmap`: reveal the entire map.
 - `hidemap`: hide the entire map except around the hero.
+- `sound`: plays a sound.
 - `treasure`: a treasure.
 - `win`: the item the player has to find to end the level.
 
-Each object has its own **custom properties** set.
-
 #### `question`
 
-These custom properties **must exist**:
+A `question` takes 6 parameters.
 
-- `question`: string, the litteral question presented to the player.
-- `choice0`, `choice1`, `choice2`, `choice3`: string, the 4 choices.
-- `answer`: string, the right answer ("0", "1", "2" or "3").
+- question (string), the litteral question presented to the player.
+- choices (string) the 4 choices.
+- answer (string), the position of the right answer ("0", "1", "2" or "3").
 
 #### `secret`
 
-These custom properties **must exist**:
+A `secret` takes 3 parameters.
 
-- `title`: string, a title or an introduction text (ie: "Did you know?")
-- `subject`: string, the secret (ie: "The ring is blue")
-- `description`: string, a description (ie: "A guardian may like this")
+- title (string): a title or an introduction text (ie: "Did you know?")
+- subject (string): string, the secret (ie: "The ring is blue")
+- description (string): a description (ie: "A guardian may like this")
 
 #### `teleport`
 
-This custom property **must exist**:
+A `teleport` takes 1 parameter:
 
-- `destination`: int, the id of the object which will receive the player after
+- destination (int): the id of the object which will receive the player after
   teleportation.
 
 #### `edible`
 
-This custom property **must exist**:
+An `edible` takes 1 parameter:
 
-- `health`: int, health increase (ie: 10)
+- health (int): health increase (ie: 10)
 
 #### `inedible`
 
-This custom property **must exist**:
+An `inedible` takes 1 parameter:
 
-- `health`: int, health decrease (ie: 10)
+- health (int): health decrease (ie: 10)
 
 #### `weapon`
 
-This custom property **must exist**:
+A `weapon` takes 1 parameter:
 
-- `attack`: int, attack increase (ie: 10)
+- attack (int): attack increase (ie: 10)
 
 #### `protection`
 
-This custom property **must exist**:
+A `protection` takes 1 parameter:
 
-- `defense`: int, defense increase (ie: 10)
+- defense (int): defense increase (ie: 10)
 
 #### `show`
 
-This custom property **must exist**:
+A `show` takes 1 or more parameters:
 
-- `object`: int, the id of the object to show (ie: 10)
+- object (int): the id of the object to show (ie: 10)
 
 #### `hide`
 
-This custom property **must exist**:
+A `hide` takes 1 or more parameters:
 
-- `object`: int, the id of the object to hide (ie: 10)
+- object (int): the id of the object to hide (ie: 10)
 
 #### `treasure`
 
-This custom property **must exist**:
+A `treasure` takes 1 parameter:
 
-- `treasure`: int, increase the wealthness (ie: 10)
+- treasure (int): increase the wealthness (ie: 10)
 
 #### `win`
 
-These custom properties **must exist**:
+A `win` takes 3 parameters:
 
-- `title`: string, a title or an introduction text (ie: "Did you know?")
-- `subject`: string, the secret (ie: "The ring is blue")
-- `description`: string, a description (ie: "A guardian may like this")
+- title (string): a title or an introduction text (ie: "Did you know?")
+- subject (string): string, the secret (ie: "The ring is blue")
+- description (string): a description (ie: "A guardian may like this")
