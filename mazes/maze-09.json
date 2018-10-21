@@ -90,6 +90,7 @@
                          "value":"show(66,67,68);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":352,
@@ -107,6 +108,7 @@
                          "value":"show(66,67,68);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":384,
@@ -124,6 +126,7 @@
                          "value":"show(66,67,68);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":416,
@@ -141,6 +144,7 @@
                          "value":"teleport(77);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -158,6 +162,7 @@
                          "value":"teleport(77);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":384,
@@ -168,12 +173,14 @@
                  "height":32,
                  "id":69,
                  "name":"Monster6",
-                 "properties":[{
-                         "name":"question",
+                 "properties":[
+                        {
+                         "name":"actions",
                          "type":"string",
                          "value":"question(\"Which actor played the fictional character Dr. Emmett Brown in the Back to the Future trilogy?\", \"Christopher Lloyd\", \"Marty Mc Fly\", \"Harold Lloyd\", \"Mike Myers\", \"0\");"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":672,
@@ -184,12 +191,14 @@
                  "height":32,
                  "id":83,
                  "name":"Monster5",
-                 "properties":[{
+                 "properties":[
+                        {
                          "name":"actions",
                          "type":"string",
                          "value":"question(\"A fortnight is a unit of time equal to how many days?\", \"4\", \"2\", \"21\", \"14\", \"3\");"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":608,
@@ -200,12 +209,14 @@
                  "height":32,
                  "id":82,
                  "name":"Monster4",
-                 "properties":[{
+                 "properties":[
+                        {
                          "name":"actions",
                          "type":"string",
                          "value":"question(\"What magic word in comic books invokes Solomon, Hercules, Atlas, Zeus, Achilles and Mercury?\", \"Abracadabra\", \"Shazam\", \"Alakhazam\", \"Shifumi\", \"1\",);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":480,
@@ -216,12 +227,14 @@
                  "height":32,
                  "id":81,
                  "name":"Monster3",
-                 "properties":[{
+                 "properties":[
+                        {
                          "name":"actions",
                          "type":"string",
                          "value":"question(\"What future US president was stranded on a desert island as a 26-year-old navy lieutenant in 1943?\", \"Jimmy Carter\", \"Richard Nixon\", \"John F. Kennedy\", \"Barack Obama\", \"2\");"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":288,
@@ -232,12 +245,14 @@
                  "height":32,
                  "id":80,
                  "name":"Monster2",
-                 "properties":[{
+                 "properties":[
+                        {
                          "name":"actions",
                          "type":"string",
                          "value":"question(\"How many members were in the American rock band The White Stripes?\", \"2\", \"3\", \"4\", \"5\", \"0\");"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":160,
@@ -248,12 +263,14 @@
                  "height":32,
                  "id":70,
                  "name":"Monster1",
-                 "properties":[{
+                 "properties":[
+                        {
                          "name":"actions",
                          "type":"string",
                          "value":"question(\"What was the first publicly traded US company to reach a $1 trillion market cap?\", \"Apple\", \"Microsoft\", \"Google\", \"IBM\", \"0\");"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":96,
@@ -271,6 +288,7 @@
                          "value":"win(\"You win!\", \"You found the item.\", \"Hope you enjoyed it!\");"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":false,
                  "width":32,
                  "x":384,
@@ -300,6 +318,7 @@
                          "value":"teleport(94);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":704,
@@ -329,6 +348,7 @@
                          "value":"teleport(96);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":32,
@@ -358,6 +378,7 @@
                          "value":"teleport(95);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":160,
@@ -387,6 +408,7 @@
                          "value":"teleport(97);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":128,
@@ -416,6 +438,7 @@
                          "value":"teleport(99);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":320,
@@ -445,6 +468,7 @@
                          "value":"teleport(100);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":384,
@@ -462,6 +486,7 @@
                          "value":"teleport(101);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":576,
@@ -491,6 +516,7 @@
                          "value":"show(93);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":672,
@@ -505,9 +531,10 @@
                         {
                          "name":"actions",
                          "type":"string",
-                         "value":"show(106)"
+                         "value":"show(106);"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":32,
                  "x":672,
@@ -525,6 +552,7 @@
                          "value":"secret(\"Need some help?\", \"You might appreciate to explore the E\", \"It could be the reason why you're stuck here.\");"
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":false,
                  "width":32,
                  "x":96,
